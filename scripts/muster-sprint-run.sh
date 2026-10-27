@@ -194,7 +194,10 @@ limit_resume_epoch(){
   printf '%s' "$line" | grep -q '"api_error_status":429' || return 1
   printf '%s' "$line" | grep -qi 'limit' || return 1
   now="$(date +%s)"
-  # reset time as stated in the payload, e.g. "resets 4:50pm" (assumed machine-local tz)
+  # reset time as stated in the payload, e.g. "resets 4:50pm" (assumed machine-local tz).
+  # A whole-hour reset is stated without minutes ("resets 2pm") — normalize before parsing, or
+  # the fail-closed branch below turns a sleepable limit into a halt.
+  line="$(printf '%s' "$line" | sed 's/resets \([0-9]\{1,2\}\)\([ap]m\)/resets \1:00\2/')"
   t="$(printf '%s' "$line" | sed -n 's/.*resets \([0-9]\{1,2\}\):\([0-9]\{2\}\)\([ap]m\).*/\1 \2 \3/p')"
   if [ -n "$t" ]; then
     read -r h m ap <<< "$t"; h=$((10#$h)); m=$((10#$m))
@@ -392,7 +395,7 @@ If the changes are clearly unrelated to this step, stop and route to PM. "
 run the Pre-Handoff Self-Review (muster/system-guide.md), and advance the queue with \
 'bash muster/scripts/muster-advance-queue.sh <your-role> \"<one-line summary (HO-ref)>\"' — never \
 hand-edit Next Step/Done. Commit subjects: '<role>: <outcome>' \
-(lowercase role, ≤60-char outcome-first line — what got better, not mechanics; why goes in the body). PM is the sole party that calls the \
+(lowercase role, ≤100 chars total, outcome-first — what got better, not mechanics; why goes in the body). PM is the sole party that calls the \
 founder: if you are a specialist and hit a blocker you cannot resolve (a decision you lack \
 authority for, a missing input, a bug you cannot crack, a red build), do NOT set Role: halt and \
 do NOT write to '## Founder Decisions' — instead file the blocker as a PM-addressed request and \

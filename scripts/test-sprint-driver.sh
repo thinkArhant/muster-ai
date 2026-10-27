@@ -230,6 +230,19 @@ echo "=================== ASSERTIONS ==================="
 pass=0; fail=0
 ok(){ if eval "$2"; then echo "PASS: $1"; pass=$((pass+1)); else echo "FAIL: $1"; fail=$((fail+1)); fi; }
 
+# --- limit_resume_epoch unit arm: the real function, lifted from the driver source, fed a payload
+# with a WHOLE-HOUR reset ("resets 2pm") — stated without minutes, it must still parse (field: a
+# whole-hour reset fell through to the fail-closed halt). Run G covers the H:MM shape live.
+eval "$(sed -n '/^hm_to_epoch(){/,/^}/p;/^epoch_hm(){/p;/^limit_resume_epoch(){/,/^}/p' "$MUSTER/scripts/muster-sprint-run.sh")"
+LIMIT_BUFFER=1; RAWLOG="$TEST/unit-raw.jsonl"
+sed "s/RESET_TIME_PLACEHOLDER/2pm/" "$TEST/limit-payload.jsonl" > "$RAWLOG"
+ok "unit: whole-hour reset parses"        'limit_resume_epoch | grep -qE "^[0-9]+$"'
+sed "s/RESET_TIME_PLACEHOLDER/4:50pm/" "$TEST/limit-payload.jsonl" > "$RAWLOG"
+ok "unit: H:MM reset still parses"        'limit_resume_epoch | grep -qE "^[0-9]+$"'
+sed "s/RESET_TIME_PLACEHOLDER/soon/" "$TEST/limit-payload.jsonl" > "$RAWLOG"
+ok "unit: unparsable reset fails closed"  '! limit_resume_epoch >/dev/null'
+unset RAWLOG LIMIT_BUFFER
+
 ok "A: role-first step header"            'grep -aq "▶ QA · Step 1" "$TEST/runA.out" && grep -aq "  QA: fixture audit" "$TEST/runA.out"'
 ok "A: telemetry on ✓ line"               'grep -aq "peak ctx 150k/1M 15% · out 4k" "$TEST/runA.out"'
 ok "A: activity compression line"         'grep -aq "📖 ×1 · ✏️  ×1 · 🧪 ×1" "$TEST/runA.out"'
