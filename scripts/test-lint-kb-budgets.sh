@@ -33,6 +33,14 @@ t over-budget-fails 1 "FAIL: bootstrap reads exceed Rule 14's 600-line budget"
 t archive-hint 1 "move pre-current-sprint entries to decision-log-archive.md"
 gen "$PROJ/knowledge-base/decision-log.md" 40
 
+# a full-sprint queue: 300-line Upcoming must NOT count; Next Step + Founder Decisions do
+{ printf '# Queue\n\n## Founder Decisions\n- one open question\n\n## Next Step\n### Step 1\nRole: pm\n\n## Upcoming\n'
+  i=0; while [ $i -lt 300 ]; do echo "### Step $((i+2)) — plan line"; i=$((i+1)); done
+  printf '\n## Done (Last 10)\n'; } > "$PROJ/knowledge-base/orchestration-queue.md"
+t full-queue-exempt 0 "OK: knowledge-base within Rule 14 budgets"
+t queue-counted-thin 0 "     7  knowledge-base/orchestration-queue.md"
+rm -f "$PROJ/knowledge-base/orchestration-queue.md"
+
 # two sprint headings -> FAIL
 cat > "$PROJ/knowledge-base/current-sprint.md" <<'EOF'
 # Sprint 3 — Active

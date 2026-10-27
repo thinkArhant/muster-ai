@@ -36,7 +36,7 @@ $KB/founder-notices.md $KB/ui-component-requests.md $KB/pre-launch-checklist.md 
 
 remedy(){ # per-file archive/trim move for the offender report
   case "$1" in
-    */orchestration-queue.md)  echo "Done cap is script-enforced; trim Upcoming step verbosity, archive answered Founder Decisions" ;;
+    */orchestration-queue.md)  echo "only Next Step + Founder Decisions count; keep Next Step to one step, archive answered Founder Decisions" ;;
     */agent-requests.md)       echo "reconcile Active to Resolved (muster-lint-requests.sh) and trim Resolved to its cap" ;;
     */decision-log.md)         echo "move pre-current-sprint entries to decision-log-archive.md" ;;
     */current-sprint.md)       echo "move completed sprints to sprint-archive.md; full task specs live in agent-context files" ;;
@@ -48,8 +48,14 @@ remedy(){ # per-file archive/trim move for the offender report
 
 fails=0; warns=0; total=0
 breakdown=""
+# The queue's budgeted read is Next Step + Founder Decisions — what PM MUST read at bind.
+# Upcoming is the sprint plan (hundreds of lines for a full sprint), read on demand, never
+# budget-limited: counting it forced hand-staged wave promotion in the field.
+queue_lines(){ awk '/^## /{on=($0 ~ /^## (Next Step|Founder Decisions)/)} on{c++} END{print c+0}' "$1"; }
 for f in $TIER1; do
-  if [ -f "$f" ]; then n="$(wc -l < "$f" | tr -d ' ')"; else n=0; fi
+  if [ ! -f "$f" ]; then n=0
+  elif [ "${f##*/}" = "orchestration-queue.md" ]; then n="$(queue_lines "$f")"
+  else n="$(wc -l < "$f" | tr -d ' ')"; fi
   total=$((total + n))
   breakdown="$breakdown$(printf '%4d\t%s' "$n" "$f")"$'\n'
 done
