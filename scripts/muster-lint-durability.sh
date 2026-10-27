@@ -39,6 +39,18 @@ for d in "$KB"/design-specs "$KB"/agent-skills; do
   [ -d "$d" ] && FILES="$FILES $(find "$d" -name '*.md' -type f | sort | tr '\n' ' ')"
 done
 
+# Project-declared durable paths beyond the knowledge-base set (`.muster/config`:
+# MUSTER_DURABLE_EXTRA="engine docs/adr" — dirs are walked, binaries skipped). This is how a
+# project's source tree joins the scan; without it, code stays a review concern.
+if [ -f .muster/config ]; then
+  extra="$(sed -n 's/^MUSTER_DURABLE_EXTRA=//p' .muster/config | tr -d '"'"'"'"')"
+  for p in $extra; do
+    if   [ -d "$p" ]; then FILES="$FILES $(find "$p" -type f ! -path '*/.git/*' -exec grep -Iql . {} \; -print | sort | tr '\n' ' ')"
+    elif [ -f "$p" ]; then FILES="$FILES $p"
+    fi
+  done
+fi
+
 if [ -z "${FILES// /}" ]; then
   echo "OK: no durable knowledge-base files found to scan (fresh project?)"; exit 0
 fi
@@ -55,7 +67,10 @@ for f in $FILES; do
       gsub(/`[^`]*`/, "", line)          # inline code spans are examples, not claims
       lo = tolower(line)
       if (line ~ /(HO|REQ|BUG|DEC)-[0-9]+/)                        { print "FAIL\t" NR "\ttransient ID (HO-/REQ-/BUG-/DEC-)"; next }
-      if (line ~ /(Sprint|Wave)[[:space:]]+[0-9]+/)                 { print "FAIL\t" NR "\tsprint/wave reference"; next }
+      # `Sprint 9` / `Wave-2` / `Step-14` / `S10-3` — hyphenated and whitespace forms alike; the bare
+      # `S<n>-<n>` token needs a non-word left edge so `iOS 17` and `S3` stay clean.
+      if (line ~ /(Sprint|Wave|Step)[[:space:]-]+[0-9]+/)            { print "FAIL\t" NR "\tsprint/wave/step reference"; next }
+      if (line ~ /(^|[^A-Za-z0-9])S[0-9]+-[0-9]+/)                   { print "FAIL\t" NR "\tsprint/wave/step reference"; next }
       if (line ~ /^[[:space:]]*-[[:space:]]*\[?20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]/) { print "FAIL\t" NR "\tdate-stamped edit bullet"; next }
       if (lo ~ /previously[^.]*now/)                                { print "WARN\t" NR "\t\"previously - now\" framing"; next }
       if (lo ~ /revised per|changed from|added for/)                { print "WARN\t" NR "\trevision-archaeology phrasing"; next }
@@ -69,6 +84,6 @@ for f in $FILES; do
   done <<< "$out"
 done
 
-echo "scanned $scanned durable file(s); $fails FAIL, $warns WARN (source code out of scope — review concern)"
+echo "scanned $scanned durable file(s); $fails FAIL, $warns WARN (source code joins via MUSTER_DURABLE_EXTRA in .muster/config)"
 [ "$fails" -eq 0 ] && { echo "OK: durability discipline clean"; exit 0; }
 exit 1

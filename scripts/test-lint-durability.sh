@@ -50,8 +50,27 @@ cat > "$PROJ/knowledge-base/design-specs/screen.md" <<'EOF'
 Built in Sprint 9 as part of Wave 2.
 - 2026-07-30: adjusted padding per review.
 EOF
-t sprint-ref-fails 1 "sprint/wave reference"
+t sprint-ref-fails 1 "sprint/wave/step reference"
 t date-bullet-fails 1 "date-stamped edit bullet"
+
+# hyphenated sprint/step tokens -> FAIL; look-alikes (iOS 17, S3) stay clean
+cat > "$PROJ/knowledge-base/design-specs/screen.md" <<'EOF'
+# Screen
+Shipped in Step-14 of Sprint-10; the S10-3 audit confirmed it.
+EOF
+t hyphen-step-ref-fails 1 "screen.md:2 — sprint/wave/step reference"
+cat > "$PROJ/knowledge-base/design-specs/screen.md" <<'EOF'
+# Screen
+Targets iOS 17; assets live in an S3 bucket. Status line shows S3-style badges.
+EOF
+t lookalikes-clean 0 "OK: durability discipline clean"
+
+# MUSTER_DURABLE_EXTRA pulls a project-declared source dir into the scan
+mkdir -p "$PROJ/engine" "$PROJ/.muster"
+printf 'MAX_STEPS=5\nMUSTER_DURABLE_EXTRA="engine"\n' > "$PROJ/.muster/config"
+printf '// compose\n// tuned per HO-212\n' > "$PROJ/engine/compose.swift"
+t extra-dir-scanned 1 "FAIL: engine/compose.swift:2 — transient ID"
+rm -rf "$PROJ/engine" "$PROJ/.muster"
 
 # fenced code + inline code spans are skipped
 cat > "$PROJ/knowledge-base/design-specs/screen.md" <<'EOF'
