@@ -12,6 +12,34 @@ submodule) are seeded copy-if-absent by re-running the live upgrade script. No b
 
 ---
 
+## Unreleased (grows until the next release)
+
+Field-paid fixes from a 20-step autonomous sprint (field report #41). Each ships with a fixture
+that was proven RED against the prior script.
+
+- **Open-items lister** matches the change-log's Active heading by prefix (`## Active Requests`
+  hid a needs-research entry for a sprint). Consistent with the requests lint.
+- **Requests lint** enforces the Resolved `(Last N)` cap it never counted — a 19-entry Resolved
+  pushed PM bootstrap to 753/600 while the lint said OK.
+- **Entry lint** treats only slash- or extension-shaped backticked tokens as deliverable paths;
+  code identifiers and globs no longer FAIL as phantoms. Do-not-revisit: a dotted identifier with a
+  short lowercase suffix (`Session.members`) can still read as a path — accepted over a
+  whitelist of extensions, which drifts.
+- **Driver** parses a whole-hour usage-limit reset (`resets 2pm`); it used to fall to the
+  fail-closed halt. Unit arm lifts the real function from the driver source.
+- **Durability lint** catches hyphenated `Step-N` / `Sprint-N` / `S10-N` tokens (bare `S<n>-<n>`
+  needs a non-word left edge so `iOS 17` / `S3` stay clean) and scans project-declared paths via
+  `MUSTER_DURABLE_EXTRA` in `.muster/config` (dirs walked, binaries skipped).
+- **One commit per step**: every closeout site (eight bootloaders, system-guide, the driver
+  prompt) orders advance-queue before the single final commit. Do-not-revisit: step references
+  stay in the body — Rule 16 keeps HO-/step IDs out of subjects.
+- **Rule 14** counts the queue as Next Step + Founder Decisions only; Upcoming is the plan, read
+  when planning. Do-not-revisit: a whole-file exemption was rejected — it would hide the one
+  queue section PM must read at bind.
+- Wrapper prompt's commit-subject cap now says 100 chars (it still said 60 after Rule 16 moved).
+
+---
+
 ## 5.0 — 2026-08-01
 
 The determinism sweep: every mechanical rule the framework used to state in prose is now a thin
