@@ -37,6 +37,12 @@ END TEMPLATES -->
 EOF
 check "clean ledger passes (template block ignored)" 0 "OK: agent-requests clean" "$T/clean.md"
 
+# --- Resolved over its "(Last N)" cap fails; at cap passes ---
+{ printf '# Agent Requests & Handoffs\n\n## Active Requests\n\n## Active Handoffs\n\n## Resolved (Last 10)\n'; for i in $(seq 1 11); do printf -- '- HO-%d — old thing\n' "$i"; done; } > "$T/resolved-over.md"
+check "Resolved over (Last 10) cap fails" 1 "Resolved holds 11 entries (cap 10" "$T/resolved-over.md"
+{ printf '# Agent Requests & Handoffs\n\n## Active Requests\n\n## Active Handoffs\n\n## Resolved (Last 10)\n'; for i in $(seq 1 10); do printf -- '- HO-%d — old thing\n' "$i"; done; } > "$T/resolved-at.md"
+check "Resolved at cap passes" 0 "OK: agent-requests clean" "$T/resolved-at.md"
+
 # --- fresh/empty ledger (new project) passes ---
 cat > "$T/empty.md" <<'EOF'
 # Agent Requests & Handoffs

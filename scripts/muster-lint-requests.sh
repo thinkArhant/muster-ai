@@ -12,6 +12,8 @@
 #   (ii) done-in-Active     — a `Status: done` entry still sitting in Active (the sweep never ran).
 #   (iii) duplicate IDs     — the same HO-/REQ-NNN filed twice (free-form Edit on the shared ledger
 #        corrupting siblings — recurrence of F-S6-4).
+#   (v)  Resolved over its own "(Last N)" cap — the one rot this lint used to miss (a 19-entry
+#        Resolved pushed a PM bootstrap to 753/600 while this script said OK).
 #   (iv) Active over budget — Active has no size cap today (unlike current-sprint / decision-log per
 #        Rule 14); a missed sweep should trip a budget check, not balloon to four figures.
 #
@@ -44,11 +46,12 @@ awk -v budget="$BUDGET" '
   # --- section transitions (flush the open entry at every boundary) ---
   /^## Active Requests/ { flush(); section="active"; cur_is_ho=0; next }
   /^## Active Handoffs/ { flush(); section="active"; cur_is_ho=1; next }
-  /^## Resolved/        { flush(); section="resolved"; next }
+  /^## Resolved/        { flush(); section="resolved"; if (match($0, /\(Last [0-9]+\)/)) { rcap=substr($0, RSTART+6, RLENGTH-7)+0 }; next }
   /^## /                { flush(); section="other"; next }
 
   # --- Active-section line budget (everything between the heading and the next `## `) ---
   section=="active" { active_total++ }
+  section=="resolved" && /^-[[:space:]]/ { resolved_total++ }
 
   # --- duplicate-ID detection across ALL `### ` entry headings (Resolved is one-liner bullets) ---
   /^### / {
@@ -78,6 +81,8 @@ awk -v budget="$BUDGET" '
 
   END {
     flush()
+    if (rcap>0 && resolved_total > rcap)
+      fail("Resolved holds " resolved_total " entries (cap " rcap " per its heading) — drop the oldest; every extra bullet is PM bootstrap tokens")
     if (active_total > budget)
       fail("Active sections total " active_total " lines (budget " budget ") — closed handoffs are accumulating; sweep done/reviewed entries to Resolved")
     if (fails>0) { print fails " defect(s) — agent-requests.md needs reconciliation"; exit 1 }
