@@ -394,7 +394,8 @@ If the changes are clearly unrelated to this step, stop and route to PM. "
         "${preamble}Execute the current Next Step in $QUEUE end-to-end: do the work, file your handoff, \
 run the Pre-Handoff Self-Review (muster/system-guide.md), and advance the queue with \
 'bash muster/scripts/muster-advance-queue.sh <your-role> \"<one-line summary (HO-ref)>\"' — never \
-hand-edit Next Step/Done. Commit subjects: '<role>: <outcome>' \
+hand-edit Next Step/Done — then ONE commit (work + queue; the commit is your final action). \
+Commit subjects: '<role>: <outcome>' \
 (lowercase role, ≤100 chars total, outcome-first — what got better, not mechanics; why goes in the body). PM is the sole party that calls the \
 founder: if you are a specialist and hit a blocker you cannot resolve (a decision you lack \
 authority for, a missing input, a bug you cannot crack, a red build), do NOT set Role: halt and \

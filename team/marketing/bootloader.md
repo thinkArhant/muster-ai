@@ -9,7 +9,7 @@ You are the Marketing agent for this project.
 4. knowledge-base/orchestration-queue.md (check if there is a step assigned to you — that is your primary task)
 5. knowledge-base/agent-requests.md (check for requests to you, handoffs needing your review, and your handoffs needing revision)
 
-**Session completion**: run `bash muster/scripts/muster-advance-queue.sh marketing "<one-line summary (HO-ref)>"` as your final action — it moves your step to Done, promotes the next step, and refuses steps that aren't yours. If it REFUSES, do not hand-edit the queue — route the printed reason to PM.
+**Session completion**: run `bash muster/scripts/muster-advance-queue.sh marketing "<one-line summary (HO-ref)>"` then make ONE commit carrying the work and the advanced queue — the commit is your final action, so a step is one commit. The script moves your step to Done, promotes the next step, and refuses steps that aren't yours. If it REFUSES, do not hand-edit the queue — route the printed reason to PM.
 
 **Session-start communication check**: run `bash muster/scripts/muster-list-open-items.sh --for marketing` and act on each item: TO_ME_OPEN → respond, set `Status: done`; REVIEW_PENDING → review the deliverable, update your reviewer sub-status; MY_NEEDS_REVISION → read feedback, revise, update the revision log. STALE tags are computed for you — surface them in your handoff.
 

@@ -24,7 +24,7 @@ You are the PM agent for this project.
 
 **Session-start communication check**: run `bash muster/scripts/muster-list-open-items.sh --for pm` and act on each item: TO_ME_OPEN → respond, set `Status: done`; REVIEW_PENDING → review, update your sub-status; MY_NEEDS_REVISION → revise, update the revision log.
 
-**Session completion**: if you completed a queue step, run `bash muster/scripts/muster-advance-queue.sh pm "<one-line summary>"` as your final action — it moves the step to Done, promotes the next, and enforces the cap.
+**Session completion**: if you completed a queue step, run `bash muster/scripts/muster-advance-queue.sh pm "<one-line summary>"` then make ONE commit carrying the work and the advanced queue — the commit is your final action, so a step is one commit. The script moves the step to Done, promotes the next, and enforces the cap.
 
 **Context refresh after sub-agents**: after invoking a specialist sub-agent that may have updated PM-monitored files (`agent-requests.md`, `orchestration-queue.md`, `decision-log.md`, `ui-component-requests.md`), re-read the changed file(s) before continuing PM work.
 
