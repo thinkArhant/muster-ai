@@ -79,6 +79,19 @@ board <<'EOF'
 EOF
 t kb-relative-resolves 0 "OK: entry bodies well-formed"
 
+# backticked code identifiers and globs in a Deliverable are not paths -> OK (field: 3 false FAILs in one sprint)
+board <<'EOF'
+## Active Handoffs
+### 2026-07-30 HO-04 — Identifiers
+**Type:** handoff
+**Producer:** Developer
+**Deliverable:** `composeSession()` in `Session.members`, tests under `src/**/*Test.swift`, spec `design-specs/spec.md`
+**Status:** in-review
+**Reviewers:**
+- [ ] QA — pending
+EOF
+t identifiers-not-paths 0 "OK: entry bodies well-formed"
+
 # missing fields -> FAIL naming them
 board <<'EOF'
 ## Active Requests

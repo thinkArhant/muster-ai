@@ -83,7 +83,9 @@ while IFS=$'\t' read -r kind head payload; do
     FAIL)  echo "FAIL: [$head] $payload"; fails=$((fails+1)) ;;
     DELIV)
       # Extract candidate paths: backticked tokens first, else bare file-ish tokens.
-      paths="$(printf '%s' "$payload" | grep -oE '`[^`]+`' | tr -d '\`' || true)"
+      # Only path-shaped tokens count: a slash or a file extension, and never a glob. Backticked
+      # code identifiers (`composeSession()`, `Session.members`) are not deliverable paths.
+      paths="$(printf '%s' "$payload" | grep -oE '`[^`]+`' | tr -d '\`' | grep -E '/|\.[a-z0-9]{1,5}$' | grep -v '[*()]' || true)"
       [ -z "$paths" ] && paths="$(printf '%s' "$payload" | sed 's/^.*\*\*Deliverable\*\*[:[:space:]]*//' | grep -oE '[A-Za-z0-9_./-]+\.[A-Za-z0-9]+' || true)"
       if [ -z "$paths" ]; then
         echo "WARN: [$head] Deliverable has no extractable path — reviewer cannot verify it exists"; warns=$((warns+1))
