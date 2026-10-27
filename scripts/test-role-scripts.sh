@@ -128,6 +128,20 @@ out="$(cd "$PROJ" && bash $LOI --for qa)"
 assert_not "loi-ticked-not-pending" "HO-41" "$out"
 out="$(cd "$PROJ" && bash $LOI)"
 assert_has "loi-legacy-mode-intact" "Open items at sprint boundary" "$out"
+# research change-log whose Active heading carries a suffix ("## Active Requests") — the lister
+# must still enumerate it (field failure: a needs-research entry went unlisted for a whole sprint)
+mkdir -p "$PROJ/knowledge-base/research"
+cat > "$PROJ/knowledge-base/research/change-log.md" <<EOF
+# Research Change Log
+
+## Active Requests
+### 2026-07-30 — Pricing elasticity question
+**Status:** needs-research
+
+## Resolved
+EOF
+out="$(cd "$PROJ" && bash $LOI)"
+assert_has "loi-research-heading-suffix" "Pricing elasticity" "$out"
 
 # ============ muster-advance-queue.sh ============
 AQ="muster/scripts/muster-advance-queue.sh"

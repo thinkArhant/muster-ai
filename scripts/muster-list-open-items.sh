@@ -86,7 +86,7 @@ enumerate() {
     /^## / {
       flush()
       hdr = $0; sub(/^##[[:space:]]+/, "", hdr); sub(/[[:space:]]+$/, "", hdr)
-      insec = (hdr == sec)
+      insec = (index(hdr, sec) == 1)   # prefix match: a heading suffix ("## Active Requests") must not hide entries
       next
     }
     insec && /^###[[:space:]]/ {
