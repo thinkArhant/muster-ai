@@ -27,10 +27,10 @@ need(){ # $1=file $2=literal anchor $3=consumers
 }
 
 Q=templates/knowledge-base/orchestration-queue.md
-need "$Q" '## Next Step'         "muster-read-queue.sh (driver+boot+advance), muster-lint-queue.sh"
+need "$Q" '## Next Step'         "muster-read-queue.sh (driver+boot+advance), muster-lint-queue.sh, muster-sprint-report.sh"
 need "$Q" '## Upcoming'          "muster-read-queue.sh section boundary, muster-advance-queue.sh promotion"
 need "$Q" '## Done'              "muster-advance-queue.sh insertion+cap, muster-lint-handoff.sh recent-entry"
-need "$Q" '## Founder Decisions' "muster-boot.sh notice_line, muster-sprint-run.sh mid-run alert"
+need "$Q" '## Founder Decisions' "muster-boot.sh notice_line, muster-sprint-run.sh mid-run alert, muster-sprint-report.sh, muster-lint-founder-surface.sh"
 
 R=templates/knowledge-base/agent-requests.md
 need "$R" '## Active Requests'   "muster-list-open-items.sh (both modes)"
@@ -65,8 +65,8 @@ done
 W=templates/knowledge-base/wave-review.md
 need "$W" '## Current Wave'              "muster-lint-gate-packet.sh + muster-sprint-resume.sh gate flow"
 need "$W" '**Wave:**'                    "muster-lint-gate-packet.sh active-gate detection"
-need "$W" '### Notices since last gate'  "muster-lint-gate-packet.sh fold-in scaffold"
-need templates/knowledge-base/founder-notices.md '- YYYY-MM-DD' "muster-lint-gate-packet.sh notice extraction (entry format)"
+need "$W" '### Notices since last gate'  "muster-lint-gate-packet.sh fold-in scaffold, muster-sprint-report.sh"
+need templates/knowledge-base/founder-notices.md '- YYYY-MM-DD' "muster-lint-gate-packet.sh, muster-sprint-report.sh, muster-lint-founder-surface.sh (entry format)"
 
 D=templates/knowledge-base/decision-log.md
 need "$D" '**Impact**'          "muster-lint-decisions.sh field + role extraction"
@@ -165,7 +165,8 @@ done
 NO_ANCHOR="muster-bind.sh muster-bound-role.sh muster-housekeeping.sh muster-guard-clean-tree.sh
 muster-guard-worktree.sh muster-agent-cli.sh muster-sprint-format.sh muster-sprint-new.sh
 muster-sprint-sandbox.sh muster-find-skill.sh muster-meter.py
-muster-commit-lint.sh muster-lint-commit.sh muster-queue-lint.sh muster-requests-lint.sh"
+muster-commit-lint.sh muster-lint-commit.sh muster-queue-lint.sh muster-requests-lint.sh
+muster-lint-test-delta.sh muster-read-test-patterns.sh"
 SELF="scripts/test-parse-contracts.sh"
 unregistered=0
 for f in scripts/muster-*.sh scripts/muster-*.py; do

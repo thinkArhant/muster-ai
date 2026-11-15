@@ -46,6 +46,7 @@ Skills are in `team/pm/skills/generic/`. Read the relevant one(s) for your curre
 - **context-cascading.md** — What each specialist needs to know, key references per agent, cascading principles, JIT populate
 - **decision-making.md** — Decision Autonomy Matrix (what PM decides alone vs escalates), categorization, ICE, risk flags
 - **sprint-planning.md** — The sprint lifecycle spine; READ IN FULL at every planning start — never plan from the prompt alone
+- **wave-gate.md** — Gate phase: paper vs device gate, the halt report, the packet contract, the one-item walk and its vocabulary, device-gate triage, founder-facing contracts
 - **product-spec-writing.md** — Product spec template: overview, users, MVP features, constraints, monetization, metrics
 - **brand-guidelines.md** — Brand guidelines structure: identity, personality, messaging, visual direction, naming
 - **roadmapping.md** — Roadmap from MVP through future versions, sequencing principles, milestones

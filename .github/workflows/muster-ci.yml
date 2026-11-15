@@ -81,6 +81,15 @@ jobs:
       - name: Founder-voice rule (all eight brains)
         run: bash scripts/test-brain-founder-voice.sh
 
+      - name: Test-delta lint (tests added/removed, untested source)
+        run: bash scripts/test-lint-test-delta.sh
+
+      - name: Founder-surface lint (product before identifier)
+        run: bash scripts/test-lint-founder-surface.sh
+
+      - name: Sprint report (mechanical half of the halt report)
+        run: bash scripts/test-sprint-report.sh
+
       - name: Queue lint (planning-correctness contract)
         run: bash scripts/test-lint-queue.sh
 

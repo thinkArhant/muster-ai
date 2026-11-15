@@ -62,6 +62,23 @@ that was proven RED against the prior script.
   The Queue Step Format, wave-table and Bug Routing anchors other files and lints point at are
   unchanged. Do-not-revisit: capacity guidelines (3–5 tasks, 20% buffer) and the fixed agent
   invocation order were cut as textbook — sequencing is "upstream first", judged per sprint.
+- **The gate has a skill.** `team/pm/skills/generic/wave-gate.md`: paper gate versus device gate
+  and when each applies; the halt report; the packet contract (numbers as what-changes · evidence ·
+  recommendation · cost · the red check; design-implied lines; already-green certifies against the
+  roadmap, never a parallel to-do list); the one-item walk in the founder's vocabulary
+  (RATIFY/AMEND/DEFER, ACCEPT/CHANGE, APPROVE/CHANGES, CARRY/IN); adds recorded as adds, a name
+  before any blind net; device-gate triage (catchable → test first, felt → ruling, by design →
+  dropped). The `wave-review.md` template now states the contract and the notices rule. Extracted
+  from twelve arogh gates and the arogh PM's own audit.
+- **The halt report is assembled, not retyped.** `muster-sprint-report.sh` prints what landed since
+  the last gate (Rule 16 subjects read as product sentences), the test delta, live notices, the
+  next step and open founder decisions; PM adds only known issues and the ask.
+- **Tests are counted, not trusted.** `muster-lint-test-delta.sh BASE..HEAD` reports test functions
+  added and removed per platform and WARNs on source changed with no test change; patterns live
+  in one table, `muster-read-test-patterns.sh`, shared with the coming write-lane lint. Warn-only.
+- **Founder files lead with the product.** `muster-lint-founder-surface.sh` WARNs on a bullet that
+  is a bare identifier and on identifier density in the gate packet, notices and Founder Decisions;
+  keyed table rows and the Verdict are exempt. Warn-only; quiet on arogh's live corpus.
 
 ---
 
