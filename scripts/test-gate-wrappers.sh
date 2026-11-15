@@ -9,7 +9,7 @@ trap 'rm -rf "$SBX"' EXIT
 
 PROJ="$SBX/proj"
 mkdir -p "$PROJ/muster/scripts" "$PROJ/knowledge-base/agent-context"
-for s in muster-plan-gate.sh muster-closeout.sh muster-lint-queue.sh muster-lint-step.sh \
+for s in muster-plan-gate.sh muster-closeout.sh muster-lint-queue.sh muster-lint-step.sh muster-lint-charter.sh \
          muster-lint-sprint.sh muster-lint-context.sh muster-read-queue.sh \
          muster-read-populated.sh muster-lint-kb-budgets.sh muster-lint-requests.sh \
          muster-lint-entry.sh muster-lint-decisions.sh muster-lint-durability.sh \

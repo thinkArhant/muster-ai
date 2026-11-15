@@ -79,6 +79,16 @@ that was proven RED against the prior script.
 - **Founder files lead with the product.** `muster-lint-founder-surface.sh` WARNs on a bullet that
   is a bare identifier and on identifier density in the gate packet, notices and Founder Decisions;
   keyed table rows and the Verdict are exempt. Warn-only; quiet on arogh's live corpus.
+- **The sprint is chartered before it is planned.** `team/pm/skills/generic/sprint-charter.md`:
+  candidates ranked (ICE moves here from decision-making, plus three admission rules — no number
+  before its science, small-and-settled first, descoping keeps the seam), the packet in eight
+  sections with every number as what-changes · evidence · recommendation · cost · **red check** ·
+  status, the chartering walk as a paper gate in the gate vocabulary, hand-off to planning. New
+  seeded template `knowledge-base/sprint-charter.md` (one live charter; Candidates section grows all
+  sprint). `muster-lint-charter.sh` FAILs a missing section, a number with no red check or a bad
+  status, WARNs a manual check or a non-goal without a wake; `muster-plan-gate.sh` runs it first with
+  `--ratified` — planning cannot start on a PROPOSED number. Existing projects copy the template by
+  hand (the updater never writes into knowledge-base/).
 
 ---
 

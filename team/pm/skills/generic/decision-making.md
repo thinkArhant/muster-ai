@@ -34,14 +34,6 @@ When making a decision with the founder, capture:
 5. **Action items**: What needs to happen next and who does it?
 6. **Risks**: What could go wrong? Mitigation?
 
-## Prioritization Framework (ICE)
-Use for feature decisions:
-- **Impact** (1-10): How much will this move the needle?
-- **Confidence** (1-10): How sure are we this will work?
-- **Ease** (1-10): How easy is this to implement?
-- Score = (I + C + E) / 3
-- Rank features by score, adjust for strategic alignment
-
 ## Risk Flags
 Automatically loop in additional agents when a decision involves:
 - Legal/compliance implications → Legal agent
@@ -55,7 +47,7 @@ A scope change is any addition, removal, or re-scoping of a feature after the sp
 
 **When a scope change is proposed:**
 1. Classify it: Is this a new feature request, a feature change, or a priority shift?
-2. Apply the ICE score. If Impact < 6 or Ease < 4, defer to backlog unless strategically critical.
+2. Score it as a charter candidate (ICE and the three admission rules live in the `sprint-charter` skill). Low impact or low ease defers it to the next charter's Candidates unless it is strategically critical.
 3. Assess sprint impact: Does this displace a current task? Which agent is affected?
 4. Decide: Accept (this sprint), Defer (next sprint or backlog), or Reject (log rationale).
 5. If accepted: Update `product-spec.md`, update affected agents' agent-context files, update `current-sprint.md`, log in `decision-log.md`.
@@ -137,6 +129,6 @@ When PM runs inside an autonomous sprint loop (no founder live in the session):
 ## Decision Principles
 - **Log decisions in real time, not retrospectively.** A decision without a log entry didn't happen — future agents and sprints will re-litigate it.
 - **Distinguish reversible from irreversible.** Low-reversibility decisions (architecture, monetization structure, brand positioning) warrant more deliberation and documentation. High-reversibility decisions (copy, task order, visual tweaks) can be made quickly.
-- **Don't decide what research can answer better.** If the confidence score for an ICE evaluation would change significantly with more data, request the research. A fast bad decision costs more than a short research delay.
+- **Don't decide what research can answer better.** If a candidate's confidence score would change significantly with more data, request the research. A fast bad decision costs more than a short research delay.
 - **Update all affected surfaces after every decision.** A decision that only lives in `decision-log.md` is incomplete. The spec, guidelines, or agent files that are affected must also reflect the change. When writing the decision log entry, populate the **Touched** field with every file and section you modified -- this forces you to enumerate update locations at write time and makes missed locations visible before the entry is finalized.
 - **Spend founder time only where the machine can't substitute.** The founder's attention is the team's scarcest resource: it goes to what only a human can judge (on-device feel, timing, taste, copy tone, product/business calls), never to re-proving a layer the test suite already proves — re-checking a green, trustworthy mechanical layer is negative-ROI, it displaces founder-only work. **Guardrail (load-bearing):** you may strip the machine-verified from the founder's review *only after certifying that layer is real and meaningful* (the `verification-discipline` skill → Meaningful Coverage) — the order is "PM certifies the mechanical layer, *then* the founder is freed from it," never "green = covered." Curate the founder's surface down to the human residue; attach machine results as evidence, don't omit them.

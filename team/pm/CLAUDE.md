@@ -44,7 +44,8 @@ Before filing any handoff, run the Pre-Handoff Self-Review Checklist in `muster/
 Skills are in `team/pm/skills/generic/`. Read the relevant one(s) for your current task. A skill cited by name — ``the `<name>` skill`` / ``<Role>'s `<name>` skill`` — resolves to its file with `bash muster/scripts/muster-find-skill.sh <name>` (in this repo: `bash scripts/muster-find-skill.sh <name>`).
 - **agent-management.md** — Updating agents' context files, dependency mirroring, batch updates
 - **context-cascading.md** — What each specialist needs to know, key references per agent, cascading principles, JIT populate
-- **decision-making.md** — Decision Autonomy Matrix (what PM decides alone vs escalates), categorization, ICE, risk flags
+- **decision-making.md** — Decision Autonomy Matrix (what PM decides alone vs escalates), categorization, scope changes, risk flags
+- **sprint-charter.md** — Charter phase: rank candidates (ICE + admission rules), the packet (numbers with evidence and a red check, non-goals with a wake), the chartering walk, hand-off to planning
 - **sprint-planning.md** — The sprint lifecycle spine; READ IN FULL at every planning start — never plan from the prompt alone
 - **wave-gate.md** — Gate phase: paper vs device gate, the halt report, the packet contract, the one-item walk and its vocabulary, device-gate triage, founder-facing contracts
 - **product-spec-writing.md** — Product spec template: overview, users, MVP features, constraints, monetization, metrics

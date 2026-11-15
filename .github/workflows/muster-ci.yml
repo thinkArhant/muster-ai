@@ -90,6 +90,9 @@ jobs:
       - name: Sprint report (mechanical half of the halt report)
         run: bash scripts/test-sprint-report.sh
 
+      - name: Charter lint (shape; every number can go red)
+        run: bash scripts/test-lint-charter.sh
+
       - name: Queue lint (planning-correctness contract)
         run: bash scripts/test-lint-queue.sh
 
