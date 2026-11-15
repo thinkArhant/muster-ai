@@ -11,7 +11,7 @@ everything a script can check, a script checks (`muster-plan-gate.sh`).
 A sprint is seven phases, each with one artifact. Planning is the second.
 1. **Charter** — the founder ratifies scope first: ranked candidates, each number with its evidence and its red check, non-goals with a reason (the `sprint-charter` skill).
 2. **Plan** — this skill: the ratified charter becomes waves, steps, contexts and a board.
-3. **Harden** — before any driver run: one cold read-only reviewer, every anchor resolved against source, a skeleton step ahead of blind nets.
+3. **Harden** — before any driver run: one cold read-only reviewer, every anchor resolved against source, a skeleton step ahead of blind nets (the `plan-hardening` skill).
 4. **Gate** — the packet certifies what the machine proved; the founder walks the felt residue only, one item per turn (the `wave-gate` skill).
 5. **Verdict** — rulings written in place as they land; founder adds become inserted steps, never moved numbers; behaviour fixes test-first (the `verdict-processing` skill).
 6. **Encode** — packet, code and spec reconciled three ways; durable docs hold current truth only.

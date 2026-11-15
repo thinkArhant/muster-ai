@@ -6,7 +6,7 @@
 # gates in the mandated order, prints one ✓/✗ block, and REFUSES to print a green summary if
 # anything failed. Zero new check logic — it only sequences the existing lints.
 #
-# Order: charter ratified → queue structure → step bodies → board → context gate for EVERY role queued → kb budgets.
+# Order: charter ratified → queue structure → step bodies → producer-before-consumer → board → context gate for EVERY role queued → kb budgets.
 #
 # Usage: muster-plan-gate.sh    Exit: 0 all green · 1 any red · 3 wiring error
 set -uo pipefail
@@ -30,6 +30,7 @@ echo "MUSTER PLAN GATE"
 check "charter ratified (no PROPOSED numbers)" bash "$SCRIPT_DIR/muster-lint-charter.sh" --ratified
 check "queue structure (driver-parseable)" bash "$SCRIPT_DIR/muster-lint-queue.sh"
 check "step bodies (cold-agent-executable)" bash "$SCRIPT_DIR/muster-lint-step.sh"
+check "producers before consumers (no net against an unbuilt name)" bash "$SCRIPT_DIR/muster-lint-order.sh"
 check "board entries + queue coherence" bash "$SCRIPT_DIR/muster-lint-sprint.sh"
 
 QUEUE=knowledge-base/orchestration-queue.md

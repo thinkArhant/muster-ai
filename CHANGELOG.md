@@ -106,6 +106,17 @@ that was proven RED against the prior script.
   on every changed file outside a specialist's deliverable and the four protocol files, with the
   revert command. Warn-only (founder call: lint warns first). PM skill-tree budget 2150 → 2400 for
   the six phase skills; stage-7 trims bring it back.
+- **The plan is proven before a stranger runs it.** `team/pm/skills/generic/plan-hardening.md`: the
+  readiness pass as a table (step · anchor · symbol · current line · verdict) before the first driver
+  start and again after any run that landed code; the anchor grammar (`path:line` (`symbol`),
+  `doc.md` → Section); producers before consumers via a types-only skeleton step; one read-only
+  cold reviewer in a worktree, priced against a fix round, with its brief; what hardening flags for
+  the founder (manual red checks, premium steps without a yes, gateless human-judgment waves).
+- **Anchors resolve or the run does not start.** `muster-lint-anchors.sh` FAILs a cited path that
+  does not exist, a `:line` past EOF, a named symbol absent from the file; WARNs a symbol that moved
+  (with its new line) and a `→ Section` the document lacks; scans the queue and every agent-context
+  file. `muster-lint-order.sh` FAILs a step that consumes a path a later step produces (an existing
+  path is a modify, not a produce) and runs inside `muster-plan-gate.sh` after the step-body lint.
 
 ---
 

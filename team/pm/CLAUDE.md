@@ -47,6 +47,7 @@ Skills are in `team/pm/skills/generic/`. Read the relevant one(s) for your curre
 - **decision-making.md** — Decision Autonomy Matrix (what PM decides alone vs escalates), categorization, scope changes, risk flags
 - **sprint-charter.md** — Charter phase: rank candidates (ICE + admission rules), the packet (numbers with evidence and a red check, non-goals with a wake), the chartering walk, hand-off to planning
 - **sprint-planning.md** — The sprint lifecycle spine; READ IN FULL at every planning start — never plan from the prompt alone
+- **plan-hardening.md** — Harden phase: the readiness pass and re-sweep (anchors lint), the anchor grammar, producers before consumers (skeleton step), one priced read-only cold reviewer with its brief, what hardening flags
 - **wave-gate.md** — Gate phase: paper vs device gate, the halt report, the packet contract, the one-item walk and its vocabulary, device-gate triage, founder-facing contracts
 - **verdict-processing.md** — Verdict phase: the one-pass cascade (charter rows, packet, queue, board, contexts, decisions, notice), the edit tools, the PM write lane, subagent write guard, hand-back
 - **product-spec-writing.md** — Product spec template: overview, users, MVP features, constraints, monetization, metrics
