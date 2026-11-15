@@ -46,7 +46,7 @@ mkdir -p "$SBX/home"   # empty HOME -> no user-level settings interference
 # ---- 1. dirty-tree refusal (project dirt blocks; nothing changes) ----
 echo "wip" > "$PROJ/knowledge-base/notes.md"
 out="$(run)"; rc=$?
-[ "$rc" -ne 0 ] && echo "$out" | grep -q "uncommitted changes" && [ "$(cat "$PROJ/.claude/agents/pm.md")" = "old stub" ] \
+[ "$rc" -ne 0 ] && grep -q "uncommitted changes" <<<"$out" && [ "$(cat "$PROJ/.claude/agents/pm.md")" = "old stub" ] \
   && ok "dirty tree refused, nothing touched" || no "dirty-tree refusal broken (rc=$rc)"
 rm "$PROJ/knowledge-base/notes.md"
 
@@ -55,7 +55,7 @@ echo "bumped" > "$PROJ/muster/bump-marker"
 before="$(cd "$PROJ" && find .claude CLAUDE.md .muster -type f -exec cat {} + | cksum)"
 out="$(run --dry-run)"; rc=$?
 after="$(cd "$PROJ" && find .claude CLAUDE.md .muster -type f -exec cat {} + | cksum)"
-[ "$rc" -eq 0 ] && [ "$before" = "$after" ] && echo "$out" | grep -q "Dry run complete" \
+[ "$rc" -eq 0 ] && [ "$before" = "$after" ] && grep -q "Dry run complete" <<<"$out"\
   && ok "muster/ dirt exempt; --dry-run changes nothing" || no "dry-run/muster-exempt broken (rc=$rc)"
 
 # ---- 3. the converge run ----
@@ -89,14 +89,14 @@ grep -qxF "knowledge-base/.muster-boot-log" "$PROJ/.gitignore" && ok "gitignore 
 before="$(cd "$PROJ" && find .claude CLAUDE.md .muster .gitignore -type f -exec cat {} + | cksum)"
 out="$(run)"; rc=$?
 after="$(cd "$PROJ" && find .claude CLAUDE.md .muster .gitignore -type f -exec cat {} + | cksum)"
-[ "$rc" -eq 0 ] && [ "$before" = "$after" ] && echo "$out" | grep -q "Current." \
+[ "$rc" -eq 0 ] && [ "$before" = "$after" ] && grep -q "Current." <<<"$out"\
   && ok "idempotent: re-run is a no-op reporting Current" || no "idempotence broken (rc=$rc)"
 
 # ---- 5. rollback warning (stamp newer than muster/VERSION) ----
 echo "1.0.0" > "$PROJ/muster/VERSION"
 ( cd "$PROJ" && git add -A >/dev/null 2>&1; git -c user.email=t@t -c user.name=t commit -qam ver >/dev/null 2>&1 )
 out="$(run)"; rc=$?
-echo "$out" | grep -q "rollback" && [ "$rc" -eq 0 ] && [ "$(cat "$PROJ/.muster/seeded-version")" = "1.0.0" ] \
+grep -q "rollback" <<<"$out" && [ "$rc" -eq 0 ] && [ "$(cat "$PROJ/.muster/seeded-version")" = "1.0.0" ] \
   && ok "rollback warned, converged anyway, stamp follows" || no "rollback path wrong (rc=$rc)"
 
 # ---- 6. missing markers -> ✗ step, exit 1, stamp NOT advanced ----
@@ -105,7 +105,7 @@ grep -v "MUSTER BOOTSTRAP" "$PROJ/CLAUDE.md" > "$PROJ/CLAUDE.md.t" && mv "$PROJ/
 ( cd "$PROJ" && git -c user.email=t@t -c user.name=t commit -qam drop-marker >/dev/null 2>&1 )
 echo "5.5.5" > "$PROJ/muster/VERSION"
 out="$(run)"; rc=$?
-[ "$rc" -ne 0 ] && echo "$out" | grep -q "missing the BOOTSTRAP markers" \
+[ "$rc" -ne 0 ] && grep -q "missing the BOOTSTRAP markers" <<<"$out"\
   && [ "$(cat "$PROJ/.muster/seeded-version")" = "1.0.0" ] \
   && ok "marker loss: ✗ + exit 1 + stamp held back (NOTICE stays alive)" || no "marker-failure path wrong (rc=$rc)"
 

@@ -36,7 +36,7 @@ check "clean range" 0 "$first..HEAD"
 
 # --- deprecation shim: the old name forwards + warns (kept one release cycle) ---
 so="$(bash "$HERE/muster-commit-lint.sh" HEAD 2>&1)"; src=$?
-if [ "$src" = 0 ] && printf '%s' "$so" | grep -q "deprecated"; then
+if [ "$src" = 0 ] && grep -q "deprecated" <<<"$so"; then
   echo "PASS: shim muster-commit-lint.sh forwards + warns"; pass=$((pass+1))
 else echo "FAIL: shim muster-commit-lint.sh (rc=$src out=<<$so>>)"; fail=$((fail+1)); fi
 

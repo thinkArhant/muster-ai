@@ -43,8 +43,8 @@ t(){ # $1=name $2=want-exit $3=grep-must ('' skip) $4=grep-must-NOT ('' skip)
   local out rc; out="$(cd "$PROJ" && bash "$LINT" 2>&1)"; rc=$?
   local ok=1
   [ "$rc" = "$wrc" ] || ok=0
-  [ -n "$want" ] && { printf '%s\n' "$out" | grep -qF -- "$want" || ok=0; }
-  [ -n "$nowant" ] && { printf '%s\n' "$out" | grep -qF -- "$nowant" && ok=0; }
+  [ -n "$want" ] && { grep -qF -- "$want" <<<"$out" || ok=0; }
+  [ -n "$nowant" ] && { grep -qF -- "$nowant" <<<"$out" && ok=0; }
   if [ "$ok" = 1 ]; then echo "PASS: $name"
   else fails=$((fails+1)); echo "FAIL: $name (rc=$rc want=$wrc)"; printf '%s\n' "$out" | sed 's/^/  got: /'; fi
 }

@@ -68,11 +68,11 @@ brs="$(cd "$SB" && echo '{"session_id":"s1"}' | bash "$FW/scripts/muster-bound-r
 brs="$(cd "$SB" && env MUSTER_SESSION_ID=s1 bash "$FW/scripts/muster-bound-role.sh" </dev/null)"
 [ "$brs" = "xo" ] && ok "muster-bound-role.sh honors MUSTER_SESSION_ID env fallback" || no "MUSTER_SESSION_ID fallback wrong: '$brs'"
 sl="$(cd "$SB" && echo '{"session_id":"s1"}' | bash "$FW/scripts/muster-statusline.sh")"
-echo "$sl" | grep -q "\[muster: xo\]" && ok "muster-statusline.sh renders [muster: xo]" || no "muster-statusline.sh did not render the role: '$sl'"
+grep -q "\[muster: xo\]" <<<"$sl" && ok "muster-statusline.sh renders [muster: xo]" || no "muster-statusline.sh did not render the role: '$sl'"
 # stub chain: project-level stub execs the submodule script (cwd = project root)
 mkdir -p "$SB/muster/scripts"; cp "$FW/scripts/muster-statusline.sh" "$SB/muster/scripts/"
 sl="$(cd "$SB" && echo '{"session_id":"s1"}' | bash "$FW/templates/.claude/statusline.sh")"
-echo "$sl" | grep -q "\[muster: xo\]" && ok "statusline stub hops to submodule and renders" || no "statusline stub chain broken: '$sl'"
+grep -q "\[muster: xo\]" <<<"$sl" && ok "statusline stub hops to submodule and renders" || no "statusline stub chain broken: '$sl'"
 # stub degrade: no submodule checkout -> loud placeholder, never a crash
 mkdir -p "$SB/deg"
 sl="$(cd "$SB/deg" && echo '{"session_id":"s1"}' | bash "$FW/templates/.claude/statusline.sh")"

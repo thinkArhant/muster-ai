@@ -47,7 +47,7 @@ v="$(key_ver=$(pop_key version); printf '%s' "$key_ver")"
 ROSTER="pm developer ui-ux qa content marketing legal research"
 agents_keys="$(awk '/"agents"[[:space:]]*:/{inag=1; next} inag && /}/{exit} inag && /"/{k=$0; sub(/^[^"]*"/,"",k); sub(/".*$/,"",k); print k}' "$POP")"
 for r in $ROSTER; do
-  printf '%s\n' "$agents_keys" | grep -qx "$r" || fail "agents block missing role \"$r\" — boot's JIT gate and check-context fail closed on it; $REPAIR"
+  grep -qx "$r" <<<"$agents_keys" || fail "agents block missing role \"$r\" — boot's JIT gate and check-context fail closed on it; $REPAIR"
 done
 while read -r k; do
   [ -z "$k" ] && continue
@@ -68,7 +68,7 @@ for r in $ROSTER; do tcheck "agents.$r" "$(pop_key "$r" agents)"; done
 
 # Lock: null, or {"agent":…,"since":<iso>} — stale past 15 min per context-cascading.md.
 lock_line="$(grep -m1 '"lock"' "$POP" || true)"
-if [ -n "$lock_line" ] && ! printf '%s' "$lock_line" | grep -q 'null'; then
+if [ -n "$lock_line" ] && ! grep -q 'null' <<<"$lock_line"; then
   since="$(printf '%s' "$lock_line" | grep -oE '20[0-9]{2}-[0-9]{2}-[0-9]{2}T[0-9:]{8}' | head -1 || true)"
   age=-1
   if [ -n "$since" ]; then

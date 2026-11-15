@@ -6,6 +6,9 @@
 # the rest — plus test-*, and a FROZEN legacy-exception list that must never grow); (2) every
 # muster-* script's line 2 declares its family — `(family:` — except DEPRECATED shims; (3) every
 # script is executable. A new script that skips the grammar, the header, or chmod goes red here.
+# (4) no pipe-into-grep -q anywhere: under `set -o pipefail`, grep -q exits on the first match and
+# the writer takes EPIPE — on macOS that turns a passing check red (field failure 2026-11-15, 45
+# sites, live driver and lints included). Use `grep -q PAT <<<"$var"` instead.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
@@ -56,6 +59,11 @@ done
 [ "$names_bad" -eq 0 ]  && ok "every script belongs to an allowed family"
 [ "$header_bad" -eq 0 ] && ok "every muster-* script declares its family on line 2"
 [ "$exec_bad" -eq 0 ]   && ok "every script is executable"
+
+# Floor 4: the pipe-into-grep -q idiom is banned fleet-wide (EPIPE under pipefail on macOS).
+pipes="$(grep -nE '(^|[^|])\| *grep -q' scripts/*.sh scripts/*.py 2>/dev/null || true)"
+if [ -z "$pipes" ]; then ok "no pipe-into-grep -q sites (use <<<\"\$var\")"
+else bad "pipe-into-grep -q found — rewrite as grep -q … <<<\"\$var\""; printf '%s\n' "$pipes" | sed 's/^/    /'; fi
 
 echo "-----------------------------------------------"
 echo "RESULT: $pass passed, $fail failed"

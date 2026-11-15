@@ -236,9 +236,9 @@ ok(){ if eval "$2"; then echo "PASS: $1"; pass=$((pass+1)); else echo "FAIL: $1"
 eval "$(sed -n '/^hm_to_epoch(){/,/^}/p;/^epoch_hm(){/p;/^limit_resume_epoch(){/,/^}/p' "$MUSTER/scripts/muster-sprint-run.sh")"
 LIMIT_BUFFER=1; RAWLOG="$TEST/unit-raw.jsonl"
 sed "s/RESET_TIME_PLACEHOLDER/2pm/" "$TEST/limit-payload.jsonl" > "$RAWLOG"
-ok "unit: whole-hour reset parses"        'limit_resume_epoch | grep -qE "^[0-9]+$"'
+ok "unit: whole-hour reset parses"        'grep -qE "^[0-9]+$" <<<"$(limit_resume_epoch)"'
 sed "s/RESET_TIME_PLACEHOLDER/4:50pm/" "$TEST/limit-payload.jsonl" > "$RAWLOG"
-ok "unit: H:MM reset still parses"        'limit_resume_epoch | grep -qE "^[0-9]+$"'
+ok "unit: H:MM reset still parses"        'grep -qE "^[0-9]+$" <<<"$(limit_resume_epoch)"'
 sed "s/RESET_TIME_PLACEHOLDER/soon/" "$TEST/limit-payload.jsonl" > "$RAWLOG"
 ok "unit: unparsable reset fails closed"  '! limit_resume_epoch >/dev/null'
 unset RAWLOG LIMIT_BUFFER

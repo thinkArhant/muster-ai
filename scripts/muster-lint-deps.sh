@@ -40,7 +40,7 @@ edges="$(
 
 fails=0
 check_mirror(){ # $1=kind-needed $2=src $3=dst $4=message
-  printf '%s\n' "$edges" | grep -qxF "$(printf '%s\t%s\t%s' "$1" "$2" "$3")" && return 0
+  grep -qxF "$(printf '%s\t%s\t%s' "$1" "$2" "$3")" <<<"$edges" && return 0
   echo "FAIL: $4"
   fails=$((fails+1))
 }

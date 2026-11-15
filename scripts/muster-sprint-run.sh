@@ -191,8 +191,8 @@ epoch_hm(){ date -r "$1" +%H:%M 2>/dev/null || date -d "@$1" +%H:%M 2>/dev/null;
 limit_resume_epoch(){
   local line t h m ap now target
   line="$(grep -a '"type":"result"' "$RAWLOG" 2>/dev/null | tail -1)"
-  printf '%s' "$line" | grep -q '"api_error_status":429' || return 1
-  printf '%s' "$line" | grep -qi 'limit' || return 1
+  grep -q '"api_error_status":429' <<<"$line" || return 1
+  grep -qi 'limit' <<<"$line" || return 1
   now="$(date +%s)"
   # reset time as stated in the payload, e.g. "resets 4:50pm" (assumed machine-local tz).
   # A whole-hour reset is stated without minutes ("resets 2pm") — normalize before parsing, or

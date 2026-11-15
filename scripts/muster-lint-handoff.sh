@@ -75,7 +75,7 @@ for ref in $refs; do
   num="${ref#HO-}"
   num="${num#"${num%%[!0]*}"}"   # strip leading zeros (HO-037 -> 37); guard all-zero below
   [ -n "$num" ] || num=0
-  if ! printf '%s\n' "$defined" | grep -qx "$num"; then
+  if ! grep -qx "$num" <<<"$defined"; then
     missing="${missing:+$missing }$ref"
   fi
 done

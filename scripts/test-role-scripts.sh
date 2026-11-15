@@ -20,8 +20,8 @@ n=0; fails=0
 ok(){ n=$((n+1)); echo "PASS: $1"; }
 ko(){ n=$((n+1)); fails=$((fails+1)); echo "FAIL: $1"; [ -n "${2:-}" ] && printf '%s\n' "$2" | sed 's/^/  got: /'; }
 assert_eq(){ [ "$2" = "$3" ] && ok "$1" || ko "$1" "want [$3] got [$2]"; }
-assert_has(){ printf '%s\n' "$3" | grep -qF -- "$2" && ok "$1" || ko "$1" "$3"; }
-assert_not(){ printf '%s\n' "$3" | grep -qF -- "$2" && ko "$1" "$3" || ok "$1"; }
+assert_has(){ grep -qF -- "$2" <<<"$3" && ok "$1" || ko "$1" "$3"; }
+assert_not(){ grep -qF -- "$2" <<<"$3" && ko "$1" "$3" || ok "$1"; }
 
 pop(){ # $1 = developer value, $2 = pm value
   cat > "$PROJ/knowledge-base/agent-context/.populated" <<EOF

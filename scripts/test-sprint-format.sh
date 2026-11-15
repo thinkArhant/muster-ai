@@ -23,8 +23,8 @@ t(){ # $1=name $2=stdin-events $3=grep-must $4=grep-must-NOT ('' skip) $5=want-m
   local m="$SBX/m.$n" out rc ok=1
   out="$(printf '%s\n' "$events" | bash "$FMT" "" "$m" 2>&1)"; rc=$?
   [ "$rc" = 0 ] || ok=0
-  printf '%s\n' "$out" | grep -qF -- "$want" || ok=0
-  [ -n "$nowant" ] && printf '%s\n' "$out" | grep -qF -- "$nowant" && ok=0
+  grep -qF -- "$want" <<<"$out" || ok=0
+  [ -n "$nowant" ] && grep -qF -- "$nowant" <<<"$out" && ok=0
   if [ -n "$wantm" ]; then [ "$(tail -1 "$m" 2>/dev/null)" = "$wantm" ] || ok=0; fi
   if [ "$ok" = 1 ]; then echo "PASS: $name"
   else fails=$((fails+1)); echo "FAIL: $name (rc=$rc metrics=$(tail -1 "$m" 2>/dev/null))"; printf '%s\n' "$out" | sed 's/^/  got: /'; fi

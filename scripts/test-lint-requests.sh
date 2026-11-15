@@ -8,7 +8,7 @@ T="$(mktemp -d)"; trap 'rm -rf "$T"' EXIT
 pass=0; fail=0
 check(){ # name  expected_exit  expected_substr  fixture_file  [budget]
   local out rc; out="$(bash "$LINT" "$4" ${5:+"$5"} 2>&1)"; rc=$?
-  if [ "$rc" = "$2" ] && printf '%s' "$out" | grep -q "$3"; then
+  if [ "$rc" = "$2" ] && grep -q "$3" <<<"$out"; then
     echo "PASS: $1"; pass=$((pass+1))
   else echo "FAIL: $1 (rc=$rc want=$2; out=<<$out>>)"; fail=$((fail+1)); fi
 }
@@ -144,7 +144,7 @@ check "missing file → exit 2" 2 "file not found" "$T/nope.md"
 
 # --- deprecation shim: the old name forwards + warns (kept one release cycle) ---
 so="$(bash "$HERE/muster-requests-lint.sh" "$T/nope.md" 2>&1)"; src=$?
-if [ "$src" = 2 ] && printf '%s' "$so" | grep -q "deprecated" && printf '%s' "$so" | grep -q "file not found"; then
+if [ "$src" = 2 ] && grep -q "deprecated" <<<"$so" && grep -q "file not found" <<<"$so"; then
   echo "PASS: shim muster-requests-lint.sh forwards + warns"; pass=$((pass+1))
 else echo "FAIL: shim muster-requests-lint.sh (rc=$src out=<<$so>>)"; fail=$((fail+1)); fi
 

@@ -62,12 +62,12 @@ git -C "$P" log --oneline -1 >/dev/null 2>&1 && ok "initial commit exists" || no
 # ---- the load-bearing part: shipped gates run clean on the pristine seed ----
 out="$(cd "$P" && bash muster/scripts/muster-boot.sh 2>&1)"; rc=$?
 route="$(printf '%s\n' "$out" | grep -c '^ROUTE=')"
-printf '%s\n' "$out" | grep -q '^ROUTE=onboarding' && [ "$route" = "1" ] \
+grep -q '^ROUTE=onboarding' <<<"$out" && [ "$route" = "1" ] \
   && ok "boot routes the pristine seed (exactly one ROUTE=onboarding)" \
   || { no "boot route wrong (rc=$rc)"; printf '%s\n' "$out" | tail -5 | sed 's/^/  got: /'; }
 
 out="$(cd "$P" && bash muster/scripts/muster-plan-gate.sh 2>&1)"; rc=$?
-[ "$rc" -eq 0 ] && printf '%s\n' "$out" | grep -q "ALL GREEN" \
+[ "$rc" -eq 0 ] && grep -q "ALL GREEN" <<<"$out"\
   && ok "plan gate ALL GREEN on the pristine seed" \
   || { no "plan gate not green on seed (rc=$rc)"; printf '%s\n' "$out" | sed 's/^/  got: /'; }
 
@@ -85,7 +85,7 @@ s="$(tr -d '[:space:]' < "$P/.muster/seeded-version" 2>/dev/null)"
 before="$(cd "$P" && find .claude CLAUDE.md .muster -type f -exec cat {} + | cksum)"
 out="$(cd "$P" && bash muster/scripts/muster-update.sh 2>&1)"; rc=$?
 after="$(cd "$P" && find .claude CLAUDE.md .muster -type f -exec cat {} + | cksum)"
-[ "$rc" -eq 0 ] && [ "$before" = "$after" ] && printf '%s\n' "$out" | grep -q "Current." \
+[ "$rc" -eq 0 ] && [ "$before" = "$after" ] && grep -q "Current." <<<"$out"\
   && ok "muster-update.sh no-ops on the pristine seed (Current, zero changes)" \
   || { no "updater not a no-op on pristine seed (rc=$rc)"; printf '%s\n' "$out" | tail -8 | sed 's/^/  got: /'; }
 

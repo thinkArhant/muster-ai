@@ -25,7 +25,7 @@ bad=0
 while IFS= read -r s; do
   [ -z "$s" ] && continue
   [ "$s" = "init" ] && continue
-  if ! printf '%s' "$s" | grep -qE "^($ROLES): \S"; then
+  if ! grep -qE "^($ROLES): \S" <<<"$s"; then
     echo "✗ no role prefix: $s"; bad=1; continue
   fi
   if [ "${#s}" -gt 100 ]; then

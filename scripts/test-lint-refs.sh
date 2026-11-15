@@ -14,7 +14,7 @@ sub(){ # portable in-place sed: BSD/GNU -i syntaxes differ; tmp-file form works 
 check(){ # name expected_exit grep_substr
   local nm="$1" want="$2" sub="${3:-}"
   local out rc; out="$(cd "$T/m" && bash scripts/muster-lint-refs.sh 2>&1)"; rc=$?
-  if [ "$rc" = "$want" ] && { [ -z "$sub" ] || printf '%s' "$out" | grep -qF "$sub"; }; then
+  if [ "$rc" = "$want" ] && { [ -z "$sub" ] || grep -qF "$sub" <<<"$out"; }; then
     echo "PASS: $nm"; pass=$((pass+1))
   else
     echo "FAIL: $nm (rc=$rc want=$want)"; printf '%s\n' "$out" | sed 's/^/    /' | head -4; fail=$((fail+1))

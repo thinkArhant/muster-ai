@@ -10,7 +10,7 @@ pass=0; fail=0
 check(){ # name expected_exit expected_stdout_substr cmd...
   local nm="$1" want_rc="$2" want_out="$3"; shift 3
   local out rc; out="$("$@" 2>/dev/null)"; rc=$?
-  if [ "$rc" = "$want_rc" ] && { [ -z "$want_out" ] || printf '%s' "$out" | grep -qF "$want_out"; }; then
+  if [ "$rc" = "$want_rc" ] && { [ -z "$want_out" ] || grep -qF "$want_out" <<<"$out"; }; then
     echo "PASS: $nm"; pass=$((pass+1))
   else
     echo "FAIL: $nm (rc=$rc want=$want_rc; out=$out)"; fail=$((fail+1))

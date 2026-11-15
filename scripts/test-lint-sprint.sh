@@ -10,7 +10,7 @@ T="$(mktemp -d)"; trap 'rm -rf "$T"' EXIT
 pass=0; fail=0
 check(){ # name  expected_exit  expected_substr  board  [queue]
   local out rc; out="$(bash "$LINT" "$4" "${5:-$T/noqueue.md}" 2>&1)"; rc=$?
-  if [ "$rc" = "$2" ] && printf '%s' "$out" | grep -qF -- "$3"; then
+  if [ "$rc" = "$2" ] && grep -qF -- "$3" <<<"$out"; then
     echo "PASS: $1"; pass=$((pass+1))
   else echo "FAIL: $1 (rc=$rc want=$2; out=<<$out>>)"; fail=$((fail+1)); fi
 }

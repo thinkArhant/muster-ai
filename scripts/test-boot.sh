@@ -107,7 +107,7 @@ mkdir -p "$PROJ/.muster"; echo 0.1.0 > "$PROJ/.muster/seeded-version"
 MR=developer tgrep drift-notice-stale-stamp 'NOTICE=muster is at 5.0.0 but project files are seeded at 0.1.0' "$BOOT"
 echo 5.0.0 > "$PROJ/.muster/seeded-version"
 n=$((n+1)); out="$(MR=developer run "$BOOT")"
-if printf '%s\n' "$out" | head -1 | grep -q '^ROUTE=bind' && ! printf '%s\n' "$out" | grep -q 'muster-update.sh'; then
+if grep -q '^ROUTE=bind' <<<"${out%%$'\n'*}" && ! grep -q 'muster-update.sh' <<<"$out"; then
   echo "PASS: drift-notice-quiet-when-converged"
 else fails=$((fails+1)); echo "FAIL: drift-notice-quiet-when-converged"; printf '%s\n' "$out" | sed 's/^/  got:  /'; fi
 rm -rf "$PROJ/muster/VERSION" "$PROJ/.muster"

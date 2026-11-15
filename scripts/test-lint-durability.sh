@@ -18,7 +18,7 @@ t(){ # $1=name $2=want-exit $3=grep-must-appear ('' = skip)
   local name="$1" wrc="$2" want="$3"
   n=$((n+1))
   local out rc; out="$(cd "$PROJ" && bash "$LINT" 2>&1)"; rc=$?
-  if [ "$rc" = "$wrc" ] && { [ -z "$want" ] || printf '%s\n' "$out" | grep -qF -- "$want"; }; then echo "PASS: $name"
+  if [ "$rc" = "$wrc" ] && { [ -z "$want" ] || grep -qF -- "$want" <<<"$out"; }; then echo "PASS: $name"
   else fails=$((fails+1)); echo "FAIL: $name (rc=$rc want=$wrc)"; printf '%s\n' "$out" | sed 's/^/  got: /'; fi
 }
 

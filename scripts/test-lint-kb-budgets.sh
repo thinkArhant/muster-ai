@@ -16,7 +16,7 @@ t(){ # $1=name $2=want-exit $3=grep-must
   local name="$1" wrc="$2" want="$3"
   n=$((n+1))
   local out rc; out="$(cd "${T_CWD:-$PROJ}" && bash "$LINT" 2>&1)"; rc=$?
-  if [ "$rc" = "$wrc" ] && printf '%s\n' "$out" | grep -qF -- "$want"; then echo "PASS: $name"
+  if [ "$rc" = "$wrc" ] && grep -qF -- "$want" <<<"$out"; then echo "PASS: $name"
   else fails=$((fails+1)); echo "FAIL: $name (rc=$rc want=$wrc)"; printf '%s\n' "$out" | sed 's/^/  got: /'; fi
 }
 gen(){ local f="$1" lines="$2"; : > "$f"; local i=0; while [ $i -lt "$lines" ]; do echo "line $i" >> "$f"; i=$((i+1)); done; }

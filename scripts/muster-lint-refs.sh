@@ -67,7 +67,7 @@ while IFS= read -r f; do
     disp="${c%%\'s*}"; name="${c#*\`}"; name="${name%\` skill}"
     dir="$(role_dir "$disp")"
     [ -z "$dir" ] && { echo "QR|$f|$disp|$name"; continue; }
-    owners_of "$name" | grep -qx "$dir" || echo "QO|$f|$disp|$name"
+    grep -qx "$dir" <<<"$(owners_of "$name")" || echo "QO|$f|$disp|$name"
   done >> "$TMP/hits"
   checked=$((checked+1))
 done < "$TMP/corpus"

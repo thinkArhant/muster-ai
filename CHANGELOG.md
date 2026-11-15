@@ -37,6 +37,11 @@ that was proven RED against the prior script.
   when planning. Do-not-revisit: a whole-file exemption was rejected — it would hide the one
   queue section PM must read at bind.
 - Wrapper prompt's commit-subject cap now says 100 chars (it still said 60 after Rule 16 moved).
+- **Fixtures and lints no longer go red on macOS from a broken pipe.** 45 `… | grep -q` sites
+  (live driver and lints included) rewritten to `grep -q … <<<"$var"`: under `pipefail`, grep -q
+  exits on the first match and the writer takes EPIPE, which Linux CI never sees. Floor 4 in
+  `test-script-naming.sh` bans the idiom. Do-not-revisit: dropping `pipefail` was rejected — it
+  guards every other pipeline.
 
 ---
 
