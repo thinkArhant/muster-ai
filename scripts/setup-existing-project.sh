@@ -523,6 +523,9 @@ if ! state_has_step "scaffold_templates"; then
     if [ ! -f "CLAUDE.md" ]; then
         cp muster/templates/CLAUDE.md CLAUDE.md
     fi
+    if [ ! -f "AGENTS.md" ]; then
+        cp muster/templates/AGENTS.md AGENTS.md
+    fi
 
     cp -r muster/templates/knowledge-base .
 

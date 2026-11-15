@@ -69,6 +69,7 @@ need "$C" '### §3 Numbers'          "muster-lint-charter.sh row scan (also firs
 need "$C" '### §5 Non-goals'        "muster-lint-charter.sh wake-condition scan"
 need "$C" '## Candidates'           "muster-lint-charter.sh required section"
 need "$C" '| ID | What changes for the user | Evidence | PM rec | Cost | Red check | Status |' "muster-lint-charter.sh 7-cell row contract"
+need templates/AGENTS.md 'MUSTER AGENTS POINTER' "muster-update.sh converge-or-leave decision"
 W=templates/knowledge-base/wave-review.md
 need "$W" '## Current Wave'              "muster-lint-gate-packet.sh + muster-sprint-resume.sh gate flow"
 need "$W" '**Wave:**'                    "muster-lint-gate-packet.sh active-gate detection"

@@ -75,6 +75,10 @@ cmp -s "$PROJ/.claude/skills/muster/SKILL.md" "$SRC/templates/.claude/skills/mus
 grep -q "FOUNDER RULE: never delete this line" "$PROJ/CLAUDE.md" && ! grep -q "OLD BOOTSTRAP LINE" "$PROJ/CLAUDE.md" \
   && grep -q "muster-boot.sh" "$PROJ/CLAUDE.md" \
   && ok "CLAUDE.md block replaced, founder sections preserved" || no "CLAUDE.md sync wrong"
+[ -f "$PROJ/AGENTS.md" ] && grep -q "MUSTER AGENTS POINTER" "$PROJ/AGENTS.md" && ok "AGENTS.md pointer created" || no "AGENTS.md not seeded"
+echo "my own agents file" > "$PROJ/AGENTS.md"
+out="$(cd "$PROJ" && bash muster/scripts/muster-update.sh --dry-run 2>&1)"
+grep -q "AGENTS.md is user-owned" <<<"$out" && [ "$(cat "$PROJ/AGENTS.md")" = "my own agents file" ] && ok "user-owned AGENTS.md left alone" || no "user AGENTS.md not respected"
 jq -e '.model == "my-choice" and (.permissions.allow | index("Bash(my-own-tool)"))' "$PROJ/.claude/settings.json" >/dev/null \
   && ok "user settings key + entry preserved" || no "user settings clobbered"
 tcount="$(jq '.permissions.allow | length' "$SRC/templates/.claude/settings.json")"

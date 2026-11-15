@@ -40,7 +40,7 @@ else no "setup-project.sh failed (rc=$rc)"; tail -15 "$SB/setup.out" | sed 's/^/
 
 # ---- seeded shape ----
 missing=""
-for f in CLAUDE.md .claude/settings.json .claude/statusline.sh .muster/config \
+for f in CLAUDE.md AGENTS.md .claude/settings.json .claude/statusline.sh .muster/config \
          knowledge-base/orchestration-queue.md knowledge-base/current-sprint.md \
          knowledge-base/agent-requests.md knowledge-base/agent-context/.populated \
          muster/system-guide.md muster/scripts/muster-boot.sh; do

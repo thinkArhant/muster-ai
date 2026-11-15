@@ -5,7 +5,7 @@
 # autonomous sessions read their protocols straight from the submodule, so a bare bump already
 # updates them. This converges the platform-located, framework-owned surfaces that cannot ride
 # the submodule (harness-parsed files at fixed paths):
-#   .claude/agents/*.md stubs · .claude/statusline.sh stub · .claude/skills/<seeded>/SKILL.md ·
+#   .claude/agents/*.md stubs · .claude/statusline.sh stub · .claude/skills/<seeded>/SKILL.md · AGENTS.md pointer ·
 #   CLAUDE.md bootstrap block (marker-bounded) · settings.json permissions.allow (jq union —
 #   every user key and entry preserved) · .gitignore boot-log line · .muster/seeded-version
 #   stamp (written LAST, only on a fully-✓ run — a crashed run keeps the drift NOTICE alive).
@@ -105,6 +105,13 @@ for d in muster/templates/.claude/skills/*/; do
     n="$(basename "$d")"
     seed "$d/SKILL.md" ".claude/skills/$n/SKILL.md" ".claude/skills/$n/SKILL.md"
 done
+
+# ---------- 3b. AGENTS.md pointer (the front door for harnesses that read AGENTS.md) ----------
+say "${BOLD}3b.${RESET} AGENTS.md pointer"
+AG=muster/templates/AGENTS.md
+if [ ! -f AGENTS.md ]; then seed "$AG" AGENTS.md "AGENTS.md"
+elif grep -qF 'MUSTER AGENTS POINTER' AGENTS.md; then seed "$AG" AGENTS.md "AGENTS.md"
+else cur "AGENTS.md is user-owned (no muster marker) — left alone"; fi
 
 # ---------- 4. CLAUDE.md bootstrap block (marker-bounded; project sections preserved) ----------
 say "${BOLD}4.${RESET} CLAUDE.md bootstrap block"
