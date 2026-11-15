@@ -6,9 +6,10 @@ trace behavior to a version. Newest first.
 Versioning: **major** = a workflow or routing model change; **minor** = additive capability or
 hardening, non-breaking. Since 5.0, upgrades converge via `muster/scripts/muster-update.sh`
 (pre-5.0 `MIGRATING-*` guides and `migrate-v*` scripts live on the 4.x tags).
-Most of a minor arrives on the next `muster/` submodule pointer bump; any new project-level files
-it adds (knowledge-base templates, `.claude/skills/*`, `scripts/test.sh` — these live outside the
-submodule) are seeded copy-if-absent by re-running the live upgrade script. No breaking migration.
+Most of a minor arrives on the next `muster/` submodule pointer bump. Framework-owned platform files
+(`.claude/` stubs and skills, the CLAUDE.md bootstrap block, `AGENTS.md`) converge by re-running
+`muster-update.sh`. New or trimmed `knowledge-base/` templates reach an existing project only by
+hand — the updater never writes into knowledge-base/. No breaking migration.
 
 ---
 
@@ -156,6 +157,17 @@ that was proven RED against the prior script.
   commits once, undoes the commit if Rule 16 fails, pushes only on green, and runs the PM write-lane
   lint on `pm:` subjects. `muster-lint-context-dup.sh` warns on every agent-context line already paid
   for in the project CLAUDE.md, muster/CLAUDE.md, the system guide or the role's brain file.
+- **The guide tells the 5.1 story.** `system-guide.md` gains the Sprint Lifecycle table (seven phases,
+  skill, artifact, mechanical floor) and loses two stale lines: "PM steps may omit the marker" (every
+  authored step carries `Role:`; the `pm` default is a backstop) and a pointer to a Wave Gates section
+  the planning spine no longer has. Rule 16 and the self-review name `muster-commit.sh`. Rule 8 says
+  "charter, then plan". This file's header no longer claims the updater seeds knowledge-base
+  templates. The Guide's operating help gains "what did the run land?" (`muster-sprint-report.sh`).
+- **`AGENTS.md` is the front door for every other harness.** A pointer file at the framework root and
+  seeded into projects (`templates/AGENTS.md`): read `CLAUDE.md`, follow its first instruction. The
+  updater converges it while its marker line stays and leaves a user-owned file alone. Nothing is
+  duplicated — one door, four harnesses. Do-not-revisit: a duplicated bootstrap block was rejected as
+  the drift the marker-bounded CLAUDE.md block exists to prevent.
 
 ---
 

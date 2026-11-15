@@ -92,6 +92,9 @@ Sprint Execution — read the section, don't recite this list from memory):
 - **Long / overnight runs**: keep the lid open and on AC. The idle-sleep guard (`caffeinate -i`)
   holds off *idle* timeout only — not lid-close or low-battery sleep. If the machine does sleep,
   nothing is lost: the step is resumable, just re-run on wake (same mid-step continuation).
+- **"What did the run land?"**: `bash muster/scripts/muster-sprint-report.sh` prints what landed
+  since the last gate (commit subjects read as product sentences), the test delta, live notices and
+  the next step. The PM adds known issues and the ask — that is the halt report (`wave-gate` skill).
 - **Hand-holding a stuck step**: drive it in a warm role tab inside the worktree — but only
   while the loop is stopped, and PM closes out before the loop resumes (`system-guide.md` →
   Mixing modes).

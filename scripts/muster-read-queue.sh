@@ -7,7 +7,7 @@
 #
 # Contract (mirrors CLAUDE.md → Role Binding):
 #   block has a fenced code block, with a 'Role:' line -> that role
-#   block has a fenced code block, no 'Role:' line     -> 'pm'  (PM steps may omit the marker)
+#   block has a fenced code block, no 'Role:' line     -> 'pm'  (tolerant backstop only — authored steps always carry Role:)
 #   block has NO fenced code block                     -> ''    (queue complete)
 # Completion keys on the ABSENCE of a ``` fence, NOT on whitespace: at sprint end agents write a
 # human-readable placeholder (e.g. "_(empty — sprint complete)_") that is non-whitespace but
