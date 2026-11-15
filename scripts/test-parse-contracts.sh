@@ -28,7 +28,7 @@ need(){ # $1=file $2=literal anchor $3=consumers
 
 Q=templates/knowledge-base/orchestration-queue.md
 need "$Q" '## Next Step'         "muster-read-queue.sh (driver+boot+advance), muster-lint-queue.sh, muster-sprint-report.sh"
-need "$Q" '## Upcoming'          "muster-read-queue.sh section boundary, muster-advance-queue.sh promotion"
+need "$Q" '## Upcoming'          "muster-read-queue.sh section boundary, muster-advance-queue.sh promotion, muster-edit-insert-step.sh placement"
 need "$Q" '## Done'              "muster-advance-queue.sh insertion+cap, muster-lint-handoff.sh recent-entry"
 need "$Q" '## Founder Decisions' "muster-boot.sh notice_line, muster-sprint-run.sh mid-run alert, muster-sprint-report.sh, muster-lint-founder-surface.sh"
 
@@ -172,7 +172,8 @@ NO_ANCHOR="muster-bind.sh muster-bound-role.sh muster-housekeeping.sh muster-gua
 muster-guard-worktree.sh muster-agent-cli.sh muster-sprint-format.sh muster-sprint-new.sh
 muster-sprint-sandbox.sh muster-find-skill.sh muster-meter.py
 muster-commit-lint.sh muster-lint-commit.sh muster-queue-lint.sh muster-requests-lint.sh
-muster-lint-test-delta.sh muster-read-test-patterns.sh"
+muster-lint-test-delta.sh muster-read-test-patterns.sh
+muster-edit-replace.sh muster-lint-write-lane.sh"
 SELF="scripts/test-parse-contracts.sh"
 unregistered=0
 for f in scripts/muster-*.sh scripts/muster-*.py; do

@@ -93,6 +93,12 @@ jobs:
       - name: Charter lint (shape; every number can go red)
         run: bash scripts/test-lint-charter.sh
 
+      - name: Edit tools (exactly-one-match replace; step insert with lints after)
+        run: bash scripts/test-edit-replace.sh && bash scripts/test-edit-insert-step.sh
+
+      - name: Write-lane lint (PM test lane + subagent deliverable guard)
+        run: bash scripts/test-lint-write-lane.sh
+
       - name: Queue lint (planning-correctness contract)
         run: bash scripts/test-lint-queue.sh
 

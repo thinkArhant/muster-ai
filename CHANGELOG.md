@@ -89,6 +89,23 @@ that was proven RED against the prior script.
   status, WARNs a manual check or a non-goal without a wake; `muster-plan-gate.sh` runs it first with
   `--ratified` — planning cannot start on a PROPOSED number. Existing projects copy the template by
   hand (the updater never writes into knowledge-base/).
+- **The verdict cascades once, by tool.** `team/pm/skills/generic/verdict-processing.md`: the
+  seven-surface pass in order (charter rows → packet → queue → board → contexts → decisions →
+  notice), fixes test-first ahead of the re-review gate, adds as suffixed steps with a name before
+  any blind net, time-neutral context pointers, the hand-back (PM never starts the driver). The PM
+  write lane as the arogh PM wrote it: test files only for changes with no behavioural meaning,
+  never an assertion, threshold or tolerance.
+- **Two edit tools, a new `muster-edit-*` family.** `muster-edit-replace.sh` replaces exactly one
+  text match or one column-0 heading's body (blockquote and fenced look-alikes ignored), dry run by
+  default, `--check` then `--apply` so a cascade lands whole or not at all — the arogh PM's per-gate
+  Python, once, with the truncation defect designed out. `muster-edit-insert-step.sh` inserts one
+  fenced step `--after` a step, `--first-upcoming` or `--as-next` (old Next Step moves to the top of
+  Upcoming), runs the queue and step lints on the result and restores the file if either is red.
+- **Writes stay in their lane.** `muster-lint-write-lane.sh --role pm` WARNs on every assertion
+  line a PM change adds or removes (patterns from the shared table); `--deliverable PATH…` WARNs
+  on every changed file outside a specialist's deliverable and the four protocol files, with the
+  revert command. Warn-only (founder call: lint warns first). PM skill-tree budget 2150 → 2400 for
+  the six phase skills; stage-7 trims bring it back.
 
 ---
 

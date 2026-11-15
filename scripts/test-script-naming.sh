@@ -2,7 +2,8 @@
 # test-script-naming.sh — fixture gate: the script-fleet convention polices itself.
 # Pins three floors so prose never has to: (1) every scripts/*.sh|*.py basename belongs to an
 # allowed family (muster-lint-* checks and never mutates, muster-guard-* blocks fail-closed,
-# muster-read-* shared parsers, muster-sprint-* the autonomous loop, an explicit verb list for
+# muster-read-* shared parsers, muster-sprint-* the autonomous loop, muster-edit-* exact-match file
+# edits that assert before they write and dry-run by default, an explicit verb list for
 # the rest — plus test-*, and a FROZEN legacy-exception list that must never grow); (2) every
 # muster-* script's line 2 declares its family — `(family:` — except DEPRECATED shims; (3) every
 # script is executable. A new script that skips the grammar, the header, or chmod goes red here.
@@ -27,7 +28,7 @@ legacy_ok(){
 
 family_ok(){ # muster-<rest> basename -> allowed family?
   case "$1" in
-    muster-lint-*.sh|muster-guard-*.sh|muster-read-*.sh|muster-sprint-*.sh) return 0 ;;
+    muster-lint-*.sh|muster-guard-*.sh|muster-read-*.sh|muster-sprint-*.sh|muster-edit-*.sh) return 0 ;;
     muster-advance-queue.sh|muster-agent-cli.sh|muster-bind.sh|muster-boot.sh) return 0 ;;
     muster-bound-role.sh|muster-check-context.sh|muster-closeout.sh) return 0 ;;
     muster-doctor-*.sh|muster-find-*.sh|muster-housekeeping.sh) return 0 ;;

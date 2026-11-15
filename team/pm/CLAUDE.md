@@ -48,6 +48,7 @@ Skills are in `team/pm/skills/generic/`. Read the relevant one(s) for your curre
 - **sprint-charter.md** — Charter phase: rank candidates (ICE + admission rules), the packet (numbers with evidence and a red check, non-goals with a wake), the chartering walk, hand-off to planning
 - **sprint-planning.md** — The sprint lifecycle spine; READ IN FULL at every planning start — never plan from the prompt alone
 - **wave-gate.md** — Gate phase: paper vs device gate, the halt report, the packet contract, the one-item walk and its vocabulary, device-gate triage, founder-facing contracts
+- **verdict-processing.md** — Verdict phase: the one-pass cascade (charter rows, packet, queue, board, contexts, decisions, notice), the edit tools, the PM write lane, subagent write guard, hand-back
 - **product-spec-writing.md** — Product spec template: overview, users, MVP features, constraints, monetization, metrics
 - **brand-guidelines.md** — Brand guidelines structure: identity, personality, messaging, visual direction, naming
 - **roadmapping.md** — Roadmap from MVP through future versions, sequencing principles, milestones
