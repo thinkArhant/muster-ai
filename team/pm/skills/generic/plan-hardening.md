@@ -24,8 +24,9 @@ The readiness pass is a table you build and act on, never a feeling:
 `bash muster/scripts/muster-lint-anchors.sh` builds the mechanical rows: every backticked path
 in the queue and in every agent-context file must exist, its `:line` must be inside the file, its
 named symbol must be there and near the line, its `→ Section` must be a heading. You patch the
-queue, the agent-context pointers and any ledger the steps cite, then run it again. A subagent may
-build the table; the patches are yours, and nothing is patched from memory — open the file.
+queue, the agent-context pointers and any ledger the steps cite, then run it again. The table is the
+lint's output plus your verdict column — never a second session re-deriving what a script printed.
+Nothing is patched from memory: open the file.
 
 ## The anchor grammar
 
@@ -48,16 +49,21 @@ yet, and the suite stays green. Reorder only when the skeleton would be the whol
 Counter-case: a path that already exists is a modify, not a produce; a later step changing a file an
 earlier step reads is ordinary and the lint says nothing.
 
-## One cold reviewer, read-only, priced first
+## One cold reviewer — the exception, read-only, priced first
 
-Before commissioning a review, write two numbers down: its budget, and the cost of one fix round
-(the driver logs the price of a step). The review is worth running when it is cheaper than the
-rework it prevents, and one well-briefed reviewer plus the plan gate beats parallel auditors:
-redundancy re-finds, it does not cover.
+A review is a whole session reading the whole plan; it is the only real spend in hardening, so it
+is not run by default. Run it when one of three triggers is present: the first wave of a sprint
+that creates new seams; a step whose scope depends on an earlier step's output; a founder add that
+changed the wave's shape. A small, settled wave with green lints gets no review. Lints first,
+always, so the reviewer never re-finds what a script catches. Before commissioning one, write two
+numbers down: its budget, and the cost of one fix round (the driver logs the price of a step); run
+it only when it is cheaper than the rework it prevents. One well-briefed reviewer beats parallel
+auditors: redundancy re-finds, it does not cover.
 
-The reviewer is a fresh session in a separate worktree with no write access, briefed with the
-commit SHA and asked to read as the headless agent will. Fold its findings yourself. A reviewer
-with write access is the field failure above; `git diff` before you trust anything it touched
+The reviewer is a fresh session on a cheaper model (reading and comparing, not creating), in a
+separate worktree with no write access, briefed with the commit SHA and the budget, and asked to
+read as the headless agent will. Fold its findings yourself. A reviewer with write access is the
+field failure above; `git diff` before you trust anything it touched
 (`muster-lint-write-lane.sh --deliverable` lists strays). The brief:
 
 ```
@@ -91,5 +97,6 @@ the manual checks and the premium steps for your yes, the driver is yours.
 
 Hardening was run to this skill when: the readiness table exists for this wave and every "moved"
 or "missing" row has a patch commit; the anchors lint and the plan gate are green at the hand-back;
-the reviewer's brief named a budget and the reviewer had no write access; every blind net has a
-producer ahead of it; and the manual red checks appear in the packet's parked section.
+no second session built the table; a review ran only on a named trigger, on a cheaper model, with a
+budget in its brief and no write access; every blind net has a producer ahead of it; and the manual
+red checks appear in the packet's parked section.

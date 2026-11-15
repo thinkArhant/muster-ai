@@ -14,8 +14,8 @@ A sprint is seven phases, each with one artifact. Planning is the second.
 3. **Harden** — before any driver run: one cold read-only reviewer, every anchor resolved against source, a skeleton step ahead of blind nets (the `plan-hardening` skill).
 4. **Gate** — the packet certifies what the machine proved; the founder walks the felt residue only, one item per turn (the `wave-gate` skill).
 5. **Verdict** — rulings written in place as they land; founder adds become inserted steps, never moved numbers; behaviour fixes test-first (the `verdict-processing` skill).
-6. **Encode** — packet, code and spec reconciled three ways; durable docs hold current truth only.
-7. **Closeout** — board reconciled, archives moved, retro written, next charter seeded.
+6. **Encode** — packet, code and spec reconciled three ways; durable docs hold current truth only (the `durable-encode` skill).
+7. **Closeout** — board reconciled, archives moved, retro written, next charter seeded (the `sprint-closeout` skill).
 
 ## Planning process
 
@@ -109,11 +109,7 @@ is logged the turn it appears: re-sequence, decide-and-log, or file the research
 
 ## Sprint Closeout
 
-The mechanics are one gate, `bash muster/scripts/muster-closeout.sh`: the open-items worklist
-plus a ✓/✗ block over board closure, entries, decisions, budgets, durability and notices; red
-anywhere refuses green. The judgment is yours: close a handoff only when its deliverable was
-validated, by its reviewers or a later regression pass — otherwise carry it; never close on
-assumption. Move the finished board to `sprint-archive.md`, pre-sprint decisions to
-`decision-log-archive.md`; sweep notices older than the sprint. Then, for every artifact the
-next sprint needs: tracked `knowledge-base/` file, or a worktree about to be deleted? Promote it.
-Write the retro (`sprint-retrospective` skill), the next charter input, then plan.
+One gate, `bash muster/scripts/muster-closeout.sh`, then the judgment: close a handoff only when its
+deliverable was validated, otherwise carry it; the archive moves; the retro; the next charter's
+input. The whole phase is the `sprint-closeout` skill; a boundary reconciliation is never skipped
+because the session that ran the last gate ended.

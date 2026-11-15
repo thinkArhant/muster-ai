@@ -117,6 +117,24 @@ that was proven RED against the prior script.
   (with its new line) and a `→ Section` the document lacks; scans the queue and every agent-context
   file. `muster-lint-order.sh` FAILs a step that consumes a path a later step produces (an existing
   path is a modify, not a produce) and runs inside `muster-plan-gate.sh` after the step-body lint.
+- **The cold review is the exception, not a per-wave habit.** `plan-hardening.md`: the readiness
+  table is the anchors lint's output plus a verdict column, never a second session; a review runs
+  only on a named trigger (first wave with new seams, a scope-dependent step, a founder add that
+  changed the wave), on a cheaper model, with a budget in its brief. Founder ruling: no helper
+  agents for what a script already prints.
+- **Approved means written.** `team/pm/skills/generic/durable-encode.md`: after each verdict and at
+  closeout, the three-way reconcile (packet → docs, code → docs, docs → contexts); every ratified
+  number lives in one durable place as current truth; screens archived whole; the durability lens
+  (Rule 15) with `muster-lint-durability.sh` as the floor; time-neutral agent-context wording;
+  promote before the worktree dies.
+- **Closeout is a phase, and the retro leaves the room.** `team/pm/skills/generic/sprint-closeout.md`
+  replaces `sprint-retrospective.md`: the closeout gate and the close/carry judgment (never close on
+  assumption), the five archive moves in order, the retro kept all sprint and compressed by tag
+  (framework → field report via the Guide, process → one decision entry with fixes accepted and
+  rejected, observation → charter candidate), framework workarounds stay transient, the skillify
+  question ("what did I write twice?" → project skill or field report), seeding the next charter,
+  and the session-carry brief for long sessions. The planning spine's closeout section is now a
+  pointer.
 
 ---
 

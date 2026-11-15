@@ -50,6 +50,8 @@ Skills are in `team/pm/skills/generic/`. Read the relevant one(s) for your curre
 - **plan-hardening.md** — Harden phase: the readiness pass and re-sweep (anchors lint), the anchor grammar, producers before consumers (skeleton step), one priced read-only cold reviewer with its brief, what hardening flags
 - **wave-gate.md** — Gate phase: paper vs device gate, the halt report, the packet contract, the one-item walk and its vocabulary, device-gate triage, founder-facing contracts
 - **verdict-processing.md** — Verdict phase: the one-pass cascade (charter rows, packet, queue, board, contexts, decisions, notice), the edit tools, the PM write lane, subagent write guard, hand-back
+- **durable-encode.md** — Encode phase: the three-way reconcile (packet ↔ code ↔ durable docs), the durability lens, time-neutral contexts, promote before the worktree dies
+- **sprint-closeout.md** — Closeout phase: the gate and the close/carry judgment, the archive moves, the retro (framework → field report, process → decision, observation → candidate), the skillify question, seeding the next charter, the session-carry brief (read when a session runs long)
 - **product-spec-writing.md** — Product spec template: overview, users, MVP features, constraints, monetization, metrics
 - **brand-guidelines.md** — Brand guidelines structure: identity, personality, messaging, visual direction, naming
 - **roadmapping.md** — Roadmap from MVP through future versions, sequencing principles, milestones
@@ -58,7 +60,6 @@ Skills are in `team/pm/skills/generic/`. Read the relevant one(s) for your curre
 - **observation-triage.md** — Disposing of agent-filed observations: ACT/DEFER/IGNORE/ESCALATE, triage-log format
 - **product-evaluation.md** — Post-research go/no-go: parameter gathering, 6-dimension rubric, verdict, kill criteria
 - **skill-gap-classification.md** — Generic (Muster) vs product-specific (project) skill test, 5 criteria, contribution trigger
-- **sprint-retrospective.md** — Sprint retro: failure identification, fix evaluation against context budget, trim discipline
 - **reverse-discovery.md** — Existing-project onboarding (Stages 1–6); boot routes to it (`ROUTE=onboarding`) — never load it otherwise
 - **greenfield-discovery.md** — Greenfield Discovery (Stages 1–5); boot routes Stage 1; load for Stages 3–5 when `research/change-log.md` has `status: researched` and Sprint 1 is unplanned
 
