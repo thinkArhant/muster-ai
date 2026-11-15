@@ -78,6 +78,9 @@ jobs:
       - name: Pillar budgets (always-read token surface)
         run: bash scripts/test-pillar-budgets.sh
 
+      - name: Founder-voice rule (all eight brains)
+        run: bash scripts/test-brain-founder-voice.sh
+
       - name: Queue lint (planning-correctness contract)
         run: bash scripts/test-lint-queue.sh
 

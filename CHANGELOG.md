@@ -43,6 +43,18 @@ that was proven RED against the prior script.
   `test-script-naming.sh` bans the idiom. Do-not-revisit: dropping `pipefail` was rejected — it
   guards every other pipeline.
 
+### The PM gets its playbook (5.1 program, staged)
+
+- **Every role talks to the founder in product terms.** A three-line "Talking to the Founder"
+  section in all eight brain files: say what a thing does before naming its number or ID, never
+  lead with a step number, handoff ID or header the founder would have to look up, one ask per
+  paragraph with a recommendation. Fixture `test-brain-founder-voice.sh` pins the section in all
+  eight. Field receipt: arogh PM chat filled with step and handoff IDs that meant nothing a day
+  later. Do-not-revisit: the project CLAUDE.md template was rejected as the single home — seeded
+  templates do not reach existing projects on a pointer bump; brain files do.
+- **PM skill index is one line per entry** (the two discovery entries carried paragraph-long load
+  triggers that `muster-boot.sh` already owns).
+
 ---
 
 ## 5.0 — 2026-08-01
