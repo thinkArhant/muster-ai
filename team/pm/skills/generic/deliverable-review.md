@@ -1,7 +1,7 @@
 # Deliverable Review Skill
 
 ## Purpose
-Methodology for reviewing agent handoffs filed in `knowledge-base/agent-requests.md`. Complements `agent-management.md` (stale thresholds, revision escalation) and `decision-making.md` (accept/reject autonomy). The agent's pre-handoff self-review checklist lives in `system-guide.md` — this skill is the PM's independent verification.
+Methodology for reviewing agent handoffs filed in `knowledge-base/agent-requests.md`. Complements `context-cascading.md` (the agent-context contract) and `decision-making.md` (accept/reject autonomy). The agent's pre-handoff self-review checklist lives in `system-guide.md` — this skill is the PM's independent verification.
 
 ## Universal Review Checklist
 Run every item against every deliverable, regardless of producing agent.
@@ -29,7 +29,7 @@ Run every item against every deliverable, regardless of producing agent.
 - Flows cover error, empty, and loading states — not just the happy path
 
 ### Content
-- Voice and tone match `brand-guidelines.md` and character personalities
+- Voice and tone match `brand-guidelines.md` (and any brand characters it defines)
 - Copy length fits UI context (buttons, cards, notifications have tight limits)
 - No health claims that could create liability
 - **Copy change cascade**: If the Content agent changed placeholder or pre-approved copy text to different final copy (e.g., "Want another session?" became "Add another session"), grep the repo for the old text and update all references. Content copy is quoted verbatim in design specs, product spec, agent-context files, orchestration queue prompts, and QA acceptance criteria. A copy change that isn't cascaded causes the Developer to implement the wrong text or QA to test against stale copy
@@ -64,16 +64,11 @@ Run every item against every deliverable, regardless of producing agent.
 
 ## Post-Accept Housekeeping
 
-**Atomic close (the checkbox and the Status field must never disagree).** When you tick the LAST required reviewer box on a handoff, flip its top-level `**Status:** done` in the SAME edit — never leave a fully-reviewed handoff at `in-review`. A reviewer-checkbox that says done while `Status` lags is invisible to the "done → Resolved" sweep (which keys on `Status`), so the accepted entry rots in Active; that is the root cause behind ledger bloat, and `muster-lint-requests.sh` is the deterministic backstop that catches it if it slips.
-
-After accepting a handoff (status → `done` or PM reviewer checked), PM must immediately:
-
-1. **Mark the producing agent's task `[x] DONE`** in their agent-context file (`knowledge-base/agent-context/<agent>.md`) Current Tasks section, with date and HO reference.
-2. **Add to `current-sprint.md` Done table** if not already there.
-
-These updates prevent agent-context files from going stale — the agent-context file is what the agent reads on next invocation, so unchecked tasks cause it to re-attempt completed work or misunderstand its current state.
-
-3. **Sprint/wave close-out sweep**: When closing multiple handoffs or completing a wave/sprint, grep all `knowledge-base/agent-context/*.md` files for `- [ ]` and cross-check each against `current-sprint.md` Done table. Every task in Done must be `[x]` in the agent's agent-context file. This catches the batch-update gap where individual post-accept updates are skipped during rapid multi-handoff processing.
+**Atomic close**: when you tick the last required reviewer box, flip `**Status:** done` in the same
+edit and move the entry to Resolved — the checkbox and the Status never disagree
+(`muster-lint-requests.sh` fails the drift). Then mark the producing agent's task done in its
+agent-context Current Tasks and add the board's Done row; an unchecked task is re-attempted at the
+agent's next bind. At a wave or sprint close, `muster-list-open-items.sh` is the sweep.
 
 ## One-Pass Rule
 
@@ -86,29 +81,3 @@ These updates prevent agent-context files from going stale — the agent-context
 - **One revision with all issues beats three with one each.** Every revision cycle costs a full agent session. Batch ruthlessly.
 - **Accept-with-notes is underused; revision is overused.** If the issue won't cause downstream agents to produce wrong output, it's a note, not a revision.
 - **Review for correctness, not style.** Reformatting agent output to match preferences is PM scope creep.
-
-## Confidence tagging for extracted claims (onboarding-only)
-
-Applies only during existing-project onboarding audits. Standard handoffs do NOT use this scheme — regular deliverables use the Universal Review Checklist above.
-
-### Scheme (binary)
-- `[verified]` — observed in a manifest, config, import, or concrete code location. Evidence cites a file path.
-- `[inferred]` — derived from patterns (file names, directory structure, naming conventions) without reading implementation. Evidence cites the pattern.
-
-Three-level schemes (high/medium/low) were rejected — they drift at boundaries. Binary is enough to focus attention.
-
-### Where tags live
-Tags live only in the **transient** `knowledge-base/.muster-onboarding/architecture-audit-notes.md`. They do NOT appear in `architecture.md` or any other durable artifact — Rule 15 requires durable files to describe current truth only, and confidence tags are archaeology by definition.
-
-### Per-item forcing function
-During founder review of audit-notes, every `[inferred]` row requires an explicit action in the Founder-action column:
-- `verified` — claim is correct; stays in `architecture.md`
-- `wrong: <correction>` — claim is wrong; `architecture.md` gets the correction
-- `don't-know` — founder can't resolve; claim is dropped from `architecture.md` and appended to `pre-launch-checklist.md` as "Verify [X] before launch"
-
-"Approve all" is NOT offered for `[inferred]` rows. `[verified]` rows don't require action (founder may still override).
-
-### Where the mechanics live
-- Audit procedure + tag assignment: the `codebase-audit` skill
-- Review flow in onboarding context + architecture finalize: the `reverse-discovery` skill → Phase 6
-- Rule 15 discipline on destinations: `reverse-discovery.md` → Phases 2.1 (triage), 6.3 (architecture), 8.3 (foundational-assumptions)

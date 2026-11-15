@@ -105,6 +105,15 @@ jobs:
       - name: Order lint (no consumer before its producer)
         run: bash scripts/test-lint-order.sh
 
+      - name: JIT populate (lock, placeholder refusal, stamp)
+        run: bash scripts/test-jit-populate.sh
+
+      - name: Commit wrapper (branch, 100-char subject, Rule 16 undo, push on green)
+        run: bash scripts/test-commit.sh
+
+      - name: Context duplication lint (nothing the layers above say)
+        run: bash scripts/test-lint-context-dup.sh
+
       - name: Queue lint (planning-correctness contract)
         run: bash scripts/test-lint-queue.sh
 

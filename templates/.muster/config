@@ -26,6 +26,9 @@
 #MUSTER_PROVIDER_URL=
 #MUSTER_PROVIDER_KEY_ENV=
 
+# Work branch for muster-commit.sh. Unset = any branch but main/master is accepted.
+#MUSTER_WORK_BRANCH=develop
+
 # Durable-truth lint scope (Rule 15). The knowledge-base durable set is always scanned; list
 # extra paths (dirs walked, binaries skipped) to bring source or docs trees into the scan.
 # MUSTER_DURABLE_EXTRA="engine docs/adr"

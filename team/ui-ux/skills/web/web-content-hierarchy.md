@@ -191,6 +191,8 @@ Not everything belongs on the first view. Web makes progressive disclosure cheap
 
 Apple's test: if removing something from the first view doesn't confuse the user, it shouldn't be on the first view.
 
+**Teach the why on request.** When the product acts on the user's behalf (a recommendation, a rule it applied, a day it chose), the reason is one line the product already knows, revealed on tap or disclose — a fact plus its reason, never a tutorial, never a tour. Users trust intelligence they can inspect in one gesture.
+
 ## Scannability Checks
 
 Run these checks on every wireframe before finalizing.

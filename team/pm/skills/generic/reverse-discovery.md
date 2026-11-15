@@ -267,6 +267,32 @@ After all rows are resolved:
 
 Architecture.md is written as current-truth, no `[verified]` / `[inferred]` tags, no archaeology. Tags and audit notes stay in the transient `architecture-audit-notes.md` until cleanup at Phase 11.
 
+### 6.4 Confidence tags — the scheme
+
+Applies only to onboarding audits; regular deliverables use the `deliverable-review` skill's checklist.
+
+**Scheme (binary)**
+- `[verified]` — observed in a manifest, config, import, or concrete code location. Evidence cites a file path.
+- `[inferred]` — derived from patterns (file names, directory structure, naming conventions) without reading implementation. Evidence cites the pattern.
+
+Three-level schemes (high/medium/low) were rejected — they drift at boundaries. Binary is enough to focus attention.
+
+**Where tags live**
+Tags live only in the **transient** `knowledge-base/.muster-onboarding/architecture-audit-notes.md`. They do NOT appear in `architecture.md` or any other durable artifact — Rule 15 requires durable files to describe current truth only, and confidence tags are archaeology by definition.
+
+**Per-item forcing function** (the 6.2 walk, restated for the tag)
+During founder review of audit-notes, every `[inferred]` row requires an explicit action in the Founder-action column:
+- `verified` — claim is correct; stays in `architecture.md`
+- `wrong: <correction>` — claim is wrong; `architecture.md` gets the correction
+- `don't-know` — founder can't resolve; claim is dropped from `architecture.md` and appended to `pre-launch-checklist.md` as "Verify [X] before launch"
+
+"Approve all" is NOT offered for `[inferred]` rows. `[verified]` rows don't require action (founder may still override).
+
+**Where the mechanics live**
+- Audit procedure + tag assignment: the `codebase-audit` skill
+- Review flow + architecture finalize: 6.1–6.3 above
+- Rule 15 discipline on destinations: Phases 2.1 (triage), 6.3 (architecture), 8.3 (foundational-assumptions)
+
 ## Phase 7: Adaptive Questionnaire (T+97)
 
 ### 7.1 Pre-fill from brain-dump

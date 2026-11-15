@@ -81,7 +81,13 @@ For each unknown:
 Unknown ≠ unspecified. The spec must account for every surface the Developer and QA agents will build and test — fill gaps with documented assumptions rather than silence.
 
 ### 10. Roadmap Summary
-High-level release sequence (MVP → v1.1 → v1.2 → v2.0+). See roadmapping.md skill for detailed guidance.
+The release sequence lives here, with the spec, and is specific only for the current release —
+directional beyond it, re-cut when launch data exists. A feature is MVP only if it passes all three
+tests: **core loop** (without it the differentiator cannot be experienced), **retention** (without it
+a first session gives no reason to return), **launchability** (without it the platform will not
+distribute the product — compliance, basic onboarding, payment where charged). When in doubt, defer:
+a Should Have shipped after the core loop is proven beats a late MVP that dilutes it. Platform
+expansion planned for later still shapes the data model and API layer now.
 
 ## Writing Principles
 - **Be specific enough to build from.** "User profile" is not a spec. "User profile screen with fields for: goal selection (single-select from 5 options), experience level (beginner/intermediate/advanced), relevant attributes, time preference (15/20/30/45/60 min)" is a spec.

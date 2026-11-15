@@ -2,7 +2,7 @@
 # muster-lint-deps.sh — lint: brain-file dependency mirroring (family: lint — reports, never mutates).
 #
 # Brain files declare `- Depends on: <Agent> — why` / `- Provides to: <Agent> — why`.
-# agent-management.md says "Mirror every dependency on both sides, every time, without
+# context-cascading.md says "Mirror every dependency on both sides, every time, without
 # exception" — restated in four places, enforced nowhere, and the graph was asymmetric in the
 # field. This asserts: X depends on Y  ⟺  Y provides to X, for specialist↔specialist edges.
 #

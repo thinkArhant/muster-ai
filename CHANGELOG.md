@@ -135,6 +135,27 @@ that was proven RED against the prior script.
   question ("what did I write twice?" → project skill or field report), seeding the next charter,
   and the session-carry brief for long sessions. The planning spine's closeout section is now a
   pointer.
+- **The PM skill tree is trimmed back under its 2150-line budget.** `agent-management.md` merged
+  into `context-cascading.md` as "the agent-context contract" (self-contained tasks, nothing the
+  three layers above already say, dependencies both sides, decide-and-act briefs, three revision
+  rounds = founder); its stale thresholds and Done cap were already scripts. `roadmapping.md` merged
+  into the spec skill's roadmap section (the three MVP tests survive; textbook timelines do not).
+  `decision-making.md` loses the unused Decision Types and Template and gains "cost if wrong" in the
+  escalation format. `deliverable-review.md`'s onboarding-only confidence tags move to
+  `reverse-discovery.md` Phase 6; post-accept housekeeping points at the requests lint. The cascade-lag
+  protocol is a pointer to Rule 11 and `muster-lint-decisions.sh`. `observation-triage.md`'s
+  PROVISIONAL note is settled honestly: five autonomous sprints filed zero observations, so the four
+  dispositions govern the Observations block only and gate findings take the gate skill's triage.
+  `skill-gap-classification.md` gains the home rule (project skills live in
+  `knowledge-base/agent-skills/<role>/`, reach muster through the field report, never written into
+  `muster/` from a project). Brand-guidelines and context-cascading lose a character-persona product
+  leak. UI/UX content-hierarchy (iOS and web) gains "teach the why on request".
+- **Three more mechanics leave prose.** `muster-jit-populate.sh lock|commit|release|status` holds the
+  populate lock and stamps `.populated`, refusing a context file that still carries placeholders.
+  `muster-commit.sh "<role>: <outcome>"` refuses off-branch commits and subjects over 100 chars,
+  commits once, undoes the commit if Rule 16 fails, pushes only on green, and runs the PM write-lane
+  lint on `pm:` subjects. `muster-lint-context-dup.sh` warns on every agent-context line already paid
+  for in the project CLAUDE.md, muster/CLAUDE.md, the system guide or the role's brain file.
 
 ---
 

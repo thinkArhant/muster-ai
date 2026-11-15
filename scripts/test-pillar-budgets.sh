@@ -58,7 +58,7 @@ check_skill_tree(){ # $1=skills-dir $2=line-budget
   n="$(find "$1" -name '*.md' -exec cat {} + 2>/dev/null | wc -l | tr -d ' ')"
   if [ "$n" -le "$2" ]; then ok "$1 — $n/$2 lines ($c skills)"; else bad "$1 — $n lines exceeds budget $2"; fi
 }
-check_skill_tree team/pm/skills        2400   # raised 2150→2400 for the six phase skills; stage-7 trims bring it back
+check_skill_tree team/pm/skills        2150
 # The planning spine is read IN FULL at every planning start — its cap is a product rule, not a budget.
 check_lines team/pm/skills/generic/sprint-planning.md 120
 sp_chars=$(wc -m < team/pm/skills/generic/sprint-planning.md | tr -d ' ')

@@ -15,7 +15,7 @@
 #   WARN — soft per-file ceilings on the usual accretors (decision-log 150, current-sprint 120,
 #          founder-notices 20 lines) — early nudges before the total reddens.
 # This script is also the arbiter of a doc contradiction: archiving triggers are these
-# budgets — not an entry-count rule; agent-management.md and sprint-planning.md defer here.
+# budgets — not an entry-count rule; context-cascading.md and sprint-planning.md defer here.
 #
 # Usage: muster-lint-kb-budgets.sh   (call sites: PM closeout gate; PM bind-time monitoring)
 # Exit: 0 within budget (WARNs allowed) · 1 over budget / multi-sprint · 3 wiring error

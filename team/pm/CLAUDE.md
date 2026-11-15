@@ -42,9 +42,8 @@ Before filing any handoff, run the Pre-Handoff Self-Review Checklist in `muster/
 
 ## Available Skills
 Skills are in `team/pm/skills/generic/`. Read the relevant one(s) for your current task. A skill cited by name — ``the `<name>` skill`` / ``<Role>'s `<name>` skill`` — resolves to its file with `bash muster/scripts/muster-find-skill.sh <name>` (in this repo: `bash scripts/muster-find-skill.sh <name>`).
-- **agent-management.md** — Updating agents' context files, dependency mirroring, batch updates
-- **context-cascading.md** — What each specialist needs to know, key references per agent, cascading principles, JIT populate
-- **decision-making.md** — Decision Autonomy Matrix (what PM decides alone vs escalates), categorization, scope changes, risk flags
+- **context-cascading.md** — What each specialist needs to know; the agent-context contract (self-contained tasks, nothing the layers above say, decide-and-act briefs); cascade lag; JIT populate
+- **decision-making.md** — Decision Autonomy Matrix (what PM decides alone vs escalates), how to escalate, the autonomous-mode boundary, scope changes, risk flags
 - **sprint-charter.md** — Charter phase: rank candidates (ICE + admission rules), the packet (numbers with evidence and a red check, non-goals with a wake), the chartering walk, hand-off to planning
 - **sprint-planning.md** — The sprint lifecycle spine; READ IN FULL at every planning start — never plan from the prompt alone
 - **plan-hardening.md** — Harden phase: the readiness pass and re-sweep (anchors lint), the anchor grammar, producers before consumers (skeleton step), one priced read-only cold reviewer with its brief, what hardening flags
@@ -52,14 +51,13 @@ Skills are in `team/pm/skills/generic/`. Read the relevant one(s) for your curre
 - **verdict-processing.md** — Verdict phase: the one-pass cascade (charter rows, packet, queue, board, contexts, decisions, notice), the edit tools, the PM write lane, subagent write guard, hand-back
 - **durable-encode.md** — Encode phase: the three-way reconcile (packet ↔ code ↔ durable docs), the durability lens, time-neutral contexts, promote before the worktree dies
 - **sprint-closeout.md** — Closeout phase: the gate and the close/carry judgment, the archive moves, the retro (framework → field report, process → decision, observation → candidate), the skillify question, seeding the next charter, the session-carry brief (read when a session runs long)
-- **product-spec-writing.md** — Product spec template: overview, users, MVP features, constraints, monetization, metrics
+- **product-spec-writing.md** — Product spec template: overview, users, MVP features (the three MVP tests), constraints, monetization, metrics, roadmap summary
 - **brand-guidelines.md** — Brand guidelines structure: identity, personality, messaging, visual direction, naming
-- **roadmapping.md** — Roadmap from MVP through future versions, sequencing principles, milestones
 - **deliverable-review.md** — Reviewing handoffs: universal checklist, per-agent focus, review depth, one-pass rule
 - **verification-discipline.md** (`team/qa/skills/generic/`) — Trust-then-verify a handoff claim against the deliverable before cascading
 - **observation-triage.md** — Disposing of agent-filed observations: ACT/DEFER/IGNORE/ESCALATE, triage-log format
 - **product-evaluation.md** — Post-research go/no-go: parameter gathering, 6-dimension rubric, verdict, kill criteria
-- **skill-gap-classification.md** — Generic (Muster) vs product-specific (project) skill test, 5 criteria, contribution trigger
+- **skill-gap-classification.md** — Generic (Muster) vs product-specific (project) skill test, 5 criteria, where a new skill is written, contribution trigger
 - **reverse-discovery.md** — Existing-project onboarding (Stages 1–6); boot routes to it (`ROUTE=onboarding`) — never load it otherwise
 - **greenfield-discovery.md** — Greenfield Discovery (Stages 1–5); boot routes Stage 1; load for Stages 3–5 when `research/change-log.md` has `status: researched` and Sprint 1 is unplanned
 

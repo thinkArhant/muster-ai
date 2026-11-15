@@ -40,7 +40,8 @@ need "$R" '## Resolved'          "muster-lint-handoff.sh resolved-bullet scan, m
 P=templates/knowledge-base/agent-context/.populated
 need "$P" '"onboarded_at"'            "muster-boot.sh routing (muster-read-populated.sh)"
 need "$P" '"onboarding_complete_at"'  "muster-boot.sh routing (muster-read-populated.sh)"
-need "$P" '"agents"'                  "muster-boot.sh JIT gate, muster-check-context.sh, muster-doctor-populated.sh"
+need "$P" '"agents"'                  "muster-boot.sh JIT gate, muster-check-context.sh, muster-doctor-populated.sh, muster-jit-populate.sh"
+need "$P" '"lock"'                    "muster-jit-populate.sh populate lock"
 for role in pm developer ui-ux qa content marketing legal research; do
   need "$P" "\"$role\"" "muster-check-context.sh $role, muster-boot.sh JIT gate"
 done
@@ -174,7 +175,7 @@ muster-guard-worktree.sh muster-agent-cli.sh muster-sprint-format.sh muster-spri
 muster-sprint-sandbox.sh muster-find-skill.sh muster-meter.py
 muster-commit-lint.sh muster-lint-commit.sh muster-queue-lint.sh muster-requests-lint.sh
 muster-lint-test-delta.sh muster-read-test-patterns.sh
-muster-edit-replace.sh muster-lint-write-lane.sh"
+muster-edit-replace.sh muster-lint-write-lane.sh muster-commit.sh muster-lint-context-dup.sh"
 SELF="scripts/test-parse-contracts.sh"
 unregistered=0
 for f in scripts/muster-*.sh scripts/muster-*.py; do

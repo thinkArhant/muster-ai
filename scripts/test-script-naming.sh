@@ -30,7 +30,7 @@ family_ok(){ # muster-<rest> basename -> allowed family?
   case "$1" in
     muster-lint-*.sh|muster-guard-*.sh|muster-read-*.sh|muster-sprint-*.sh|muster-edit-*.sh) return 0 ;;
     muster-advance-queue.sh|muster-agent-cli.sh|muster-bind.sh|muster-boot.sh) return 0 ;;
-    muster-bound-role.sh|muster-check-context.sh|muster-closeout.sh) return 0 ;;
+    muster-bound-role.sh|muster-check-context.sh|muster-closeout.sh|muster-commit.sh|muster-jit-populate.sh) return 0 ;;
     muster-doctor-*.sh|muster-find-*.sh|muster-housekeeping.sh) return 0 ;;
     muster-list-*.sh|muster-plan-gate.sh|muster-meter.py|muster-statusline.sh|muster-update.sh) return 0 ;;
     # Tier-2 deprecation shims (remove at next major, and this exemption with them)

@@ -11,7 +11,7 @@ For each `OBS-NNN` in a handoff:
 4. **Route** per the table below.
 5. **Log one line** in `triage-log.md` (every disposition, no exceptions).
 
-## 4-way disposition + routing (PROVISIONAL — see note)
+## 4-way disposition + routing
 | Disposition | Meaning | Route to |
 |---|---|---|
 | **ACT** | Worth doing now, within approved scope | A `REQ` in `agent-requests.md` addressed to an **already-scheduled** agent. **Never** a new queue step. |
@@ -19,7 +19,12 @@ For each `OBS-NNN` in a handoff:
 | **IGNORE** | Not worth acting on | A `triage-log.md` line only (the audit trail *is* the record). |
 | **ESCALATE** | Needs a founder call | `## Founder Decisions` in `orchestration-queue.md` (**non-halting** — see integration rules). |
 
-> **PROVISIONAL:** these four categories and their routing are a first cut. They are calibrated after the first real autonomous run produces actual observation data — expect the boundaries (especially ACT vs. DEFER, and what reaches IGNORE) to shift. Do not treat them as settled or gold-plate around them.
+**Calibration.** Five autonomous arogh sprints filed no OBS lines at all: agents surfaced findings
+in handoff bodies and at gates instead. So this table governs the Observations block only; a finding
+that arrives at a gate takes the `wave-gate` skill's triage (catchable → test first · felt → founder
+· by design → dropped). Two boundaries from that field: a working-but-incomplete affordance or a
+deliberate placeholder is IGNORE with the decision cited, never ACT; and ACT is only ever absorbed
+by an agent already scheduled this wave — anything else is DEFER or ESCALATE.
 
 ## triage-log.md line format
 `- YYYY-MM-DD | OBS-NNN (HO-NNN) | DISPOSITION | summary | rationale-or-target`

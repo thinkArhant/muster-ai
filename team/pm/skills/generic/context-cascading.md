@@ -31,7 +31,7 @@ When cascading product context to specialist agents, tailor what each role needs
 ### Content
 **Needs to know**: Brand voice, character personalities, and what copy is needed.
 - Brand voice and personality traits (from brand-guidelines.md)
-- Character/persona backstories and personality traits (from brand-guidelines)
+- Brand characters or mascots, if the brand has them (from brand-guidelines)
 - In-app copy surfaces: onboarding, core feature UI, system messages, notifications, error states
 - Naming conventions (consistent terminology across the product)
 - Domain messaging tone (how to communicate expertise/credibility without jargon)
@@ -74,22 +74,18 @@ When cascading product context to specialist agents, tailor what each role needs
 
 ## Cascading Principles
 
-0. **All PM-managed content lives in agent-context files**: Product context, current tasks, and cross-agent dependencies are updated in `knowledge-base/agent-context/<agent>.md`, not in agent brain files (`muster/team/<agent>/CLAUDE.md`). Brain files contain role definition, skills, and reference doc lists — they are framework-level and rarely change.
-
 1. **Filter for relevance**: Developer doesn't need marketing strategy. Marketing doesn't need data model details. Each agent should receive only what's actionable for their role.
 
 2. **Include references to source docs**: Instead of copying entire sections, say "See knowledge-base/research/competitive-analysis.md for detailed competitor teardowns." This lets agents go deeper when needed without bloating their context.
 
-3. **Always update cross-agent dependencies on BOTH sides**: If Developer depends on UI/UX for design specs, update BOTH agents' Cross-Agent Dependencies sections.
-
-4. **Cascade in dependency order**: Update upstream agents first so their outputs are available when downstream agents start:
+3. **Cascade in dependency order**: Update upstream agents first so their outputs are available when downstream agents start:
    - **First wave**: UI/UX (design direction), Content (voice and copy), Legal (compliance requirements)
    - **Second wave**: Developer (needs design specs from UI/UX), Marketing (needs brand voice from Content)
    - **Third wave**: QA (needs feature specs from Developer, content from Content)
 
-5. **Keep PM-MANAGED sections concise**: Use bullet points, not paragraphs. Link to docs instead of duplicating. Each agent's Product Context should be 10-20 lines max.
+4. **Keep PM-MANAGED sections concise**: Use bullet points, not paragraphs. Link to docs instead of duplicating. Each agent's Product Context should be 10-20 lines max.
 
-6. **Verify completeness**: After cascading, review each agent's agent-context file to confirm they have enough context to begin their assigned tasks without needing to ask clarifying questions.
+5. **Verify completeness**: After cascading, review each agent's agent-context file to confirm they have enough context to begin their assigned tasks without needing to ask clarifying questions.
 
 ## Post-Cascade Verification Checklist
 After updating all agent-context files, run this check before closing the cascade:
@@ -103,31 +99,32 @@ After updating all agent-context files, run this check before closing the cascad
 
 If any item fails: fix the gap before declaring the cascade complete.
 
-## Cascade Lag Prevention Protocol
-Run this after EVERY product decision, not just after full cascades. Cascade lag happens when a decision updates the product spec and decision log but agent files still reference the old state.
+## Cascade lag
 
-### Per-Decision Quick Audit (2 minutes)
-After logging a decision in `decision-log.md`, immediately check:
+Lag is a decision that reached the spec and the log but not the files agents read. Rule 11 is the
+floor: grep the repo for the old term before the decision entry is final, and `bash
+muster/scripts/muster-lint-decisions.sh` fails an Impact that names a role with no agent-context
+update. Then re-read each named role's Product Context and Current Tasks for the old state; check
+active handoffs in `agent-requests.md` and add a revision line where a deliverable in review is
+affected; stale wording in `research/*.md` goes to Research through `change-log.md`, never edited
+by PM. The patterns that slip: a completed PM task still listed, a descoped feature still named, an
+old format or tier surviving a rename.
 
-1. **Keyword scan (mandatory)**: Identify the key terms that changed (e.g., a media format was renamed, a platform scope was narrowed, a feature was descoped). Grep the FULL repository for the OLD terms — not just agent files. Record the grep results in the decision-log entry's Touched field so there is an audit trail. If a file contains the old term but does not need updating (e.g., historical/archival), note it as "reviewed, no change needed."
-2. **Agent Product Context**: For each affected agent listed in the decision's "Impact" field, re-read their Product Context section. Does it still describe the old state? Fix it.
-3. **Agent Current Tasks**: If the decision changes task scope or adds/removes tasks, update the affected agent's agent-context file (`knowledge-base/agent-context/<agent>.md`) Current Tasks and `current-sprint.md`.
-4. **Skills files**: Check PM skills files (context-cascading.md, roadmapping.md, sprint-planning.md) for references to the old state. These are easy to miss because they feel "stable."
-5. **Cross-references**: If the decision changes feature IDs, feature names, or tier assignments, grep for the old values across all agent files.
-6. **Active handoffs**: Check `knowledge-base/agent-requests.md` for active handoffs affected by this decision. If a decision changes a deliverable that is currently in-review, add a revision log note to the handoff entry so reviewers know the deliverable has changed.
+## The agent-context contract
 
-### Common Lag Patterns to Watch For
-- Completed PM tasks still listed as pending (task list not cleaned up after finishing work)
-- Research agent Product Context not updated after product spec refinements (Research finished discovery but context was never refreshed)
-- Old media format or technology references surviving after format decisions (e.g., deprecated library names, old delivery mechanisms)
-- Removed features or modules still mentioned in agent context (features descoped from MVP, platforms dropped from support matrix)
-- Old pricing or tier assignments persisting after monetization changes
-
-### Research File Cascade
-Research files (`knowledge-base/research/*.md`) are owned by the Research agent — PM cannot edit them directly. When the keyword scan surfaces stale terminology in research files, PM must add an entry to `knowledge-base/research/change-log.md` with `status: needs-research` listing the specific files and terms to update. This is the only PM-to-Research communication channel.
-
-### Enforcement
-The "Touched" field in each decision log entry forces enumeration of every file modified. If an agent file should have been touched but is missing from the list, the update was likely missed. Review the "Touched" list against the "Impact" list -- every impacted agent should have a corresponding file touch.
+- Only `<!-- PM-MANAGED -->` sections are PM's; the Agent-Specific Context section belongs to the
+  agent. Read the whole file before writing it.
+- A Current Task is self-contained: deliverable, priority, effort, dependencies (which agent must
+  finish what first), acceptance criteria, key references. Never a pointer to the board. Never a
+  skill path — the brain file indexes every skill; the task names the need, the agent picks the file.
+- **Nothing the three layers above already say.** The project CLAUDE.md, muster/CLAUDE.md and the
+  role's brain file are paid for at every bind; a line repeated here is paid twice, forever. Write
+  the synthesis those files cannot have. `bash muster/scripts/muster-lint-context-dup.sh` warns on
+  every duplicated line.
+- Cross-agent dependencies live in brain files, both sides, checked by `muster-lint-deps.sh`.
+- A brief to a specialist ends with "decide and act": cascade the context and the constraints, name
+  the decision the specialist owns, and do not pre-make the design or architecture call.
+- Three or more revision rounds on one handoff is a misalignment for the founder, not a fourth round.
 
 ## Just-in-time mode
 
@@ -135,17 +132,14 @@ Activated when a specialist returns `HALT: agent-context null (first invocation)
 
 ### Procedure
 
-1. **Acquire the lock**. Read `knowledge-base/agent-context/.populated`. If `lock` is not `null` and `lock.since` is within 15 minutes, another populate is in progress — wait and retry when it clears. If `lock.since` is older than 15 minutes, treat as stale and overwrite. Otherwise set `lock` to `{"agent": "<name>", "since": "<now-iso8601>"}`.
-
-2. **Read sources and filter**. Read the knowledge-base files this agent's role needs (per the per-agent guide above — each role has different key references). Also read `current-sprint.md` for this agent's tasks and `knowledge-base/agent-skills/<agent>/` if any product-specific skills exist.
-
-3. **Write the agent-context file**. Populate `knowledge-base/agent-context/<agent>.md` using the per-agent filter at the top of this skill. Keep Product Context to 10-20 lines. Reference docs, don't duplicate. JIT-populated context feeds a cold agent re-invoked headless in the same turn — apply the Cold-Start Sufficiency Test (`sprint-planning.md`) to the Current Tasks before releasing the lock.
-
-4. **Apply stub-accrued decisions** (Rule 11). Read `decision-log.md` (and `decision-log-archive.md` if it exists) for entries dated at or after `.populated.onboarded_at`. Filter entries whose Impact field names this agent. Apply each applicable decision's effects as part of the populate. This closes out the "stub accrues; applied at first populate" guarantee.
-
-5. **Release the lock and timestamp**. Set `.populated.agents.<name>` to current ISO-8601 timestamp; set `.populated.lock` to `null`.
-
-6. **Re-invoke**. Immediately re-invoke the agent via Task tool with the ORIGINAL task prompt (not the halt message). Agent now finds a timestamp, runs standard startup, executes the task.
+The lock and the stamp are mechanical: `bash muster/scripts/muster-jit-populate.sh lock <role>`
+(refuses while another populate is under fifteen minutes old), write the file, then
+`muster-jit-populate.sh commit <role>` (refuses placeholders or a missing Current Tasks section,
+stamps `.populated`, releases the lock). The judgment is the filter: read what this role's guide
+above names, plus `current-sprint.md` for its tasks; write Product Context in 10–20 lines that
+reference docs rather than copy them; apply the decisions logged since `onboarded_at` whose Impact
+names this role (Rule 11); then re-invoke the agent with its original prompt. One short note to
+the founder — "populating <role> context, one time" — never a question.
 
 ### When NOT to JIT-populate
 - `.populated` missing entirely → halt with: "Muster setup incomplete — `.populated` state file missing. Re-run `scripts/setup-existing-project.sh --resume`."

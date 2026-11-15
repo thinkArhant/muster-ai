@@ -39,6 +39,14 @@ This runs during the dedicated "PM: Create missing skills" orchestration queue s
 4. If hybrid, create the generic version first, then a product skill that references it
 5. **Follow existing skill protocols.** Use the skill file template, quality checklist, and registration steps from `system-guide.md` → "Adding a New Skill." For platform-specific skills, use the established prefix convention (`ios-`, `backend-`, `web-`) and place in the matching subdirectory (`skills/ios/`, `skills/backend/`, `skills/web/`). If the target platform subdirectory doesn't exist, create it before writing the skill file. In the skill's body, cite other skills **by name, never by path** (``the `<name>` skill``, or ``<Role>'s `<name>` skill`` when the name exists under multiple roles) — `muster-lint-refs.sh` enforces this at registration.
 
+## Where a new skill is written
+
+A project holds its skills under `knowledge-base/agent-skills/<role>/`, listed in that role's
+agent-context Project Skills section. A generic draft is still written there, then contributed
+upstream through the field report — never into `muster/` from a project session: the submodule
+write is an untracked change the merge drops, and the project stays unable to update. The project
+keeps its copy until the framework release that carries it lands on the pointer bump.
+
 ## Tooling and Framework Findings Route Upstream First
 
 This skill's five criteria apply to TOOLING the same as to skills: a script, lint, or protocol

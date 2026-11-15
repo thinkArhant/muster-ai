@@ -1,39 +1,5 @@
 # Decision Making Framework
 
-## Decision Types and Their Impact
-
-### Strategic Decisions
-Product direction, target audience, monetization, brand positioning.
-- Log in decision-log.md
-- Update product-spec.md or brand-guidelines.md
-- Update ALL agents' Product Context
-
-### Feature Decisions
-New features, feature changes, deprecations, scope changes.
-- Log in decision-log.md
-- Update product-spec.md
-- Update AFFECTED agents' Product Context and Current Tasks
-- Update architecture.md if technical implications
-
-### Tactical Decisions
-Sprint priorities, task assignments, timeline adjustments.
-- Update current-sprint.md
-- Update affected agents' Current Tasks and Cross-Agent Dependencies
-
-### Operational Decisions
-Process changes, tool choices, workflow adjustments.
-- Update relevant skill files
-- Log in decision-log.md if significant
-
-## Decision Template
-When making a decision with the founder, capture:
-1. **Context**: What situation prompted this decision?
-2. **Options considered**: What alternatives were evaluated?
-3. **Decision**: What was decided and why?
-4. **Impact**: Which agents/areas are affected?
-5. **Action items**: What needs to happen next and who does it?
-6. **Risks**: What could go wrong? Mitigation?
-
 ## Risk Flags
 Automatically loop in additional agents when a decision involves:
 - Legal/compliance implications → Legal agent
@@ -108,6 +74,7 @@ When the PM encounters a decision requiring founder input, add an entry to the *
 **Context**: [1-2 lines — what happened and why this needs a call]
 **PM Recommendation**: [what PM thinks and why]
 **Blocked**: [which agent/step can't proceed until this is resolved]
+**Cost if wrong**: [what reversing a wrong ruling would cost — a copy tweak or a re-cut engine]
 **Your call**: [founder edits this line with their answer]
 ```
 

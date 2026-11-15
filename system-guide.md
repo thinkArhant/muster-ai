@@ -146,7 +146,7 @@ If the agent needs to own a directory (like Research owns `knowledge-base/resear
 1. Add a new rule in `muster/CLAUDE.md`
 2. Create an async channel (like `change-log.md`) for PM communication
 3. Add monitoring instruction to `muster/CLAUDE.md` "Role Binding" section (or to `team/pm/bootloader.md` "Monitoring duties" if the trigger is PM-only at PM bind time)
-4. Document the boundary in `muster/team/pm/skills/generic/agent-management.md`
+4. Document the boundary in `muster/team/pm/skills/generic/context-cascading.md` (the agent-context contract)
 
 ---
 
@@ -318,7 +318,7 @@ When a change affects how agents structurally operate (not product content, but 
 4. Update **Skill File Template** in this file if skill structure changed
 5. Update **Agent-Context Templates** in `templates/knowledge-base/agent-context/` if context file structure changed
 6. Update **Safety Checklist** in this file if a new structural requirement was added
-7. Update `muster/team/pm/skills/generic/agent-management.md` if PM's update protocol changed
+7. Update `muster/team/pm/skills/generic/context-cascading.md` if PM's update protocol changed
 
 ---
 

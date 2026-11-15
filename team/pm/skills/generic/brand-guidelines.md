@@ -30,14 +30,14 @@
 ### 4. Visual Direction
 - **Color palette direction**: Primary, secondary, accent color families and the mood they convey (specific hex codes are UI/UX agent's job)
 - **Typography preferences**: Serif vs. sans-serif, weight preferences, readability priorities
-- **Character persona descriptions**: Brief personality and visual description for each character — enough for the content and design teams to maintain consistency
+- **Brand characters or mascots** (only if the brand uses them): personality and visual description, enough for Content and UI/UX to keep them consistent
 - **Aesthetic keywords**: 3-5 words capturing the visual feel (e.g., "minimalist premium," "clean and confident," "warm but sophisticated")
 - **Photography/imagery style**: If applicable, direction for any non-character visual assets
 
 ### 5. Naming Conventions
 - How to refer to the app's features (e.g., canonical term for core content items, canonical term for sessions/activities)
 - How to refer to app sections (e.g., tab names, screen names — define canonical labels)
-- Character name usage rules (when to use names vs. generic references)
+- Character name usage rules, if the brand has characters (when to use names vs. generic references)
 - Capitalization rules for product-specific terms
 
 ### 6. Competitive Positioning Statement
