@@ -1,0 +1,4 @@
+# Enforce LF line endings for shell scripts on all platforms.
+# Without this, Windows Git (core.autocrlf=true) converts LF→CRLF on checkout,
+# making every .sh script fail immediately in bash with "invalid option" errors.
+*.sh text eol=lf
