@@ -115,7 +115,7 @@ Any entry with overall status `done` that is still in the Active Requests or Act
 The PM owns `knowledge-base/orchestration-queue.md` — the founder's "what to do next" file.
 
 ### Lifecycle
-1. **Sprint planning**: Populate the queue with the full agent invocation sequence (see `sprint-planning.md` step 8). Clear the Done section from the previous sprint.
+1. **Sprint planning**: Populate the queue with the full agent invocation sequence (see `sprint-planning.md` → Queue Step Format). Clear the Done section from the previous sprint.
 2. **Before each step goes live**: Verify the Next Step agent's agent-context file (`knowledge-base/agent-context/<agent>.md`) Current Tasks has real tasks inlined — not a pointer to current-sprint.md.
 3. **After reviewing agent output**: If accepted, confirm the completing agent promoted the next step. If the agent didn't update the queue (e.g., session was killed early), do it yourself. If rejected, add revision notes to agent-requests.md and keep the same agent as Next Step.
 4. **Founder decisions**: When a decision requires founder input (per Decision Autonomy Matrix in `decision-making.md`), write it to the Founder Decisions section with context, your recommendation, and what's blocked.

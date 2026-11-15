@@ -1,7 +1,7 @@
 # Sprint Retrospective Skill
 
 ## Purpose
-Systematic process improvement at sprint boundaries. `sprint-planning.md` covers task accounting (closeout steps 1-5); this skill covers identifying what broke, evaluating fixes, and implementing only those that earn their context weight.
+Systematic process improvement at sprint boundaries. `sprint-planning.md` covers task accounting (Sprint Closeout); this skill covers identifying what broke, evaluating fixes, and implementing only those that earn their context weight.
 
 ## When to Run
 - **End of every sprint**, after closeout in `sprint-planning.md` but before planning the next sprint.

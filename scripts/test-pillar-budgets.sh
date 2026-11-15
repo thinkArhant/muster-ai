@@ -59,6 +59,11 @@ check_skill_tree(){ # $1=skills-dir $2=line-budget
   if [ "$n" -le "$2" ]; then ok "$1 — $n/$2 lines ($c skills)"; else bad "$1 — $n lines exceeds budget $2"; fi
 }
 check_skill_tree team/pm/skills        2150
+# The planning spine is read IN FULL at every planning start — its cap is a product rule, not a budget.
+check_lines team/pm/skills/generic/sprint-planning.md 120
+sp_chars=$(wc -m < team/pm/skills/generic/sprint-planning.md | tr -d ' ')
+if [ "$sp_chars" -le 11000 ]; then ok "planning spine — $sp_chars/11000 chars (line cap cannot be dodged by packing)"
+else bad "planning spine — $sp_chars chars exceeds 11000 (packing lines to beat the 120-line cap)"; fi
 check_skill_tree team/developer/skills 9600
 check_skill_tree team/ui-ux/skills     8600
 check_skill_tree team/qa/skills        1700

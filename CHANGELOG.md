@@ -54,6 +54,14 @@ that was proven RED against the prior script.
   templates do not reach existing projects on a pointer bump; brain files do.
 - **PM skill index is one line per entry** (the two discovery entries carried paragraph-long load
   triggers that `muster-boot.sh` already owns).
+- **The planning skill is a 120-line spine.** `sprint-planning.md` (239 → ≤120, fixture-capped in
+  `test-pillar-budgets.sh`) names the seven lifecycle phases and keeps only planning judgment:
+  boundary reset, sequence before assign, waves and the gate flag, cohesion, the Cold-Start test,
+  cite-nothing-unopened, model policy, the plan gate. Driver mechanics now live only in
+  `system-guide.md`; the removed detail is the absorb source for the six phase skills that follow.
+  The Queue Step Format, wave-table and Bug Routing anchors other files and lints point at are
+  unchanged. Do-not-revisit: capacity guidelines (3–5 tasks, 20% buffer) and the fixed agent
+  invocation order were cut as textbook — sequencing is "upstream first", judged per sprint.
 
 ---
 

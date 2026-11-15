@@ -1,7 +1,7 @@
 # Skill Gap Classification
 
 ## Purpose
-When PM identifies a missing skill during the sprint planning skill gap scan (Step 9), this skill provides strict criteria for classifying it as generic (belongs in the Muster framework) or product-specific (belongs in the project's `knowledge-base/agent-skills/<agent>/` directory). See `sprint-planning.md` for the scan that triggers this skill.
+When PM identifies a missing skill during the sprint planning skill gap scan, this skill provides strict criteria for classifying it as generic (belongs in the Muster framework) or product-specific (belongs in the project's `knowledge-base/agent-skills/<agent>/` directory). See `sprint-planning.md` for the scan that triggers this skill.
 
 The bar for generic inclusion is intentionally high — Muster's value depends on minimal context waste, and every generic skill added increases the framework's token footprint for all future projects.
 
