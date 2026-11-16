@@ -6,12 +6,24 @@
 # Sourced (not executed) by muster-sprint-run.sh and muster-sprint-resume.sh so there is
 # ONE guard that cannot drift; `exit 1` here aborts the sourcing script.
 if [ "${MUSTER_SPRINT_ALLOW_PRIMARY:-0}" != "1" ]; then
-  gitdir="$(git rev-parse --git-dir 2>/dev/null)" || { echo "⛔ Not a git repo."; exit 1; }
-  case "$gitdir" in
-    */worktrees/*) : ;;  # linked worktree — OK
-    *) echo "⛔ Refusing to run on the primary checkout (irreversible with skip-permissions)."
-       echo "   Create a worktree first (scripts/muster-sprint-sandbox.sh),"
-       echo "   or set MUSTER_SPRINT_ALLOW_PRIMARY=1 to override deliberately."
-       exit 1 ;;
-  esac
+  if gitdir="$(git rev-parse --git-dir 2>/dev/null)"; then
+    # git available — use it (authoritative)
+    case "$gitdir" in
+      */worktrees/*) : ;;  # linked worktree — OK
+      *) echo "⛔ Refusing to run on the primary checkout (irreversible with skip-permissions)."
+         echo "   Create a worktree first (scripts/muster-sprint-sandbox.sh),"
+         echo "   or set MUSTER_SPRINT_ALLOW_PRIMARY=1 to override deliberately."
+         exit 1 ;;
+    esac
+  elif [ -f .git ]; then
+    : # .git is a file → linked worktree (git not in PATH in this shell — fallback check)
+  elif [ -d .git ]; then
+    echo "⛔ Refusing to run on the primary checkout (irreversible with skip-permissions)."
+    echo "   Create a worktree first (scripts/muster-sprint-sandbox.sh),"
+    echo "   or set MUSTER_SPRINT_ALLOW_PRIMARY=1 to override deliberately."
+    exit 1
+  else
+    echo "⛔ Not a git repo."
+    exit 1
+  fi
 fi
