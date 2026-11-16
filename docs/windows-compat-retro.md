@@ -8,10 +8,15 @@
 
 ## Summary
 
+**Platform context**: Muster's shell scripts were written for macOS/Linux bash.
+Windows support is not documented and requires manual workarounds. This
+retrospective is the first field report from a Windows 11 user running the
+autonomous sprint loop via PowerShell + Git for Windows.
+
 A developer on Windows 11 attempted to run the autonomous sprint loop
-(`muster-sprint-run.sh`) from PowerShell for the first time. Three sequential
-blockers prevented the loop from starting. All three are Windows-specific — the
-scripts work correctly on macOS/Linux.
+(`muster-sprint-run.sh`) from PowerShell for the first time. Five sequential
+blockers were encountered. All are Windows-specific — the scripts work
+correctly on macOS/Linux.
 
 This document records each issue, its root cause, the workaround applied, and
 the recommended permanent fix.
@@ -187,16 +192,60 @@ Or create `knowledge-base/founder-notices.md` as part of the project scaffold
 
 ---
 
+## Issue 5 — `jq` not installed: formatter falls back to raw JSON
+
+**Symptom**
+
+The sprint loop terminal floods with raw stream-json events
+(`thinking_tokens`, `assistant`, `user` JSON objects) instead of the clean
+human-readable trail (📖 reads, ✏️ edits, 🧪 bash runs).
+
+**Root cause**
+
+`muster-sprint-format.sh` checks for `jq` at startup:
+```bash
+if ! command -v jq >/dev/null 2>&1; then
+  if [ -n "$RAWLOG" ]; then tee -a "$RAWLOG"; else cat; fi
+  exit 0
+fi
+```
+
+`jq` is not pre-installed on Windows. Without it, the formatter passes every
+raw event to the terminal unfiltered. The sprint runs correctly — the output is
+just unreadable.
+
+**Workaround applied**
+
+```powershell
+winget install jqlang.jq
+```
+
+Then restart the terminal so the new PATH is picked up.
+
+**Recommended fix**
+
+Document `jq` as a required dependency for Windows in a `docs/windows-setup.md`
+guide. Optionally add a preflight check in `muster-sprint-run.sh` that warns
+(not blocks) when `jq` is missing:
+```bash
+command -v jq >/dev/null 2>&1 || \
+  echo "⚠ jq not found — install it for formatted output (winget install jqlang.jq)"
+```
+
+---
+
 ## Suggested Enhancements for Next Release
 
 | # | Enhancement | Priority |
 |---|-------------|----------|
 | 1 | Add `.gitattributes` with `*.sh text eol=lf` | **Critical** — blocks Windows entirely |
 | 2 | Worktree guard filesystem fallback when `git` not in PATH | **High** — blocks sprint loop on Windows |
-| 3 | Document PowerShell env-var syntax in guard override message | **Medium** |
-| 4 | Read `.muster/config` before guard sources (not after) | **Medium** |
-| 5 | Guard `founder-notices.md` read with file-existence check | **Low** |
-| 6 | `setup-project.sh` creates `knowledge-base/founder-notices.md` | **Low** |
+| 3 | Add `docs/windows-setup.md` with prerequisites (Git for Windows, jq, etc.) | **High** — no Windows onboarding docs exist |
+| 4 | Warn on missing `jq` at sprint startup (non-blocking) | **Medium** |
+| 5 | Document PowerShell env-var syntax in guard override message | **Medium** |
+| 6 | Read `.muster/config` before guard sources (not after) | **Medium** |
+| 7 | Guard `founder-notices.md` read with file-existence check | **Low** |
+| 8 | `setup-project.sh` creates `knowledge-base/founder-notices.md` | **Low** |
 
 ---
 
